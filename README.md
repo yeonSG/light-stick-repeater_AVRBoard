@@ -1,16 +1,20 @@
 # light-stick-repeater_AVRBoard
 light-stick-repeater의 AVRBoard 코드
 
+# Atmega128 참고.
+ - [atmega128 개발 환경 기본 설정](https://kmg1767.tistory.com/38)
+ - [프로그램 메모리 활용](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=jbivanlee&logNo=40119550790)
+
 # EDP 조사 자료.
 ## EPD(Electronic Paper Display) 개요
-[홈페이지](https://docs.pervasivedisplays.com/epd-usage/epd-driving-sequence/small-epds)
+ - [홈페이지](https://docs.pervasivedisplays.com/epd-usage/epd-driving-sequence/small-epds)
 
 ## 제품 데이터시트
-[데이터시트 : E2213HS091](https://www.pervasivedisplays.com/wp-content/uploads/2019/06/1P159-00_01_E2213HS091_20171031.pdf)
+ - [데이터시트 : E2213HS091](https://www.pervasivedisplays.com/wp-content/uploads/2019/06/1P159-00_01_E2213HS091_20171031.pdf)
 
 
 ## 참고용 코드1)
-[E2213HS091C의 코드](https://github.com/szongen/E2213HS091-drive/blob/main/Application/HardDrivers/E2213JS0C1.h)
+ - [E2213HS091C의 코드](https://github.com/szongen/E2213HS091-drive/blob/main/Application/HardDrivers/E2213JS0C1.h)
  ### 해당 프로젝트에서 "main.c"의 int main(void) 함수 부터 추적.
  - 1. HAL_init();           : 칩 Init
  - 2. SystemClock_Config()  : 
