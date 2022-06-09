@@ -39,7 +39,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Appication/HardDrivers/E2213JS0C1.c \
+../Appication/HardDrivers/E2213HS091.c \
 ../main.c
 
 
@@ -50,19 +50,19 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Appication/HardDrivers/E2213JS0C1.o \
+Appication/HardDrivers/E2213HS091.o \
 main.o
 
 OBJS_AS_ARGS +=  \
-Appication/HardDrivers/E2213JS0C1.o \
+Appication/HardDrivers/E2213HS091.o \
 main.o
 
 C_DEPS +=  \
-Appication/HardDrivers/E2213JS0C1.d \
+Appication/HardDrivers/E2213HS091.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
-Appication/HardDrivers/E2213JS0C1.d \
+Appication/HardDrivers/E2213HS091.d \
 main.d
 
 OUTPUT_FILE_PATH +=avrMCU.elf
@@ -79,7 +79,7 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-Appication/HardDrivers/E2213JS0C1.o: ../Appication/HardDrivers/E2213JS0C1.c
+Appication/HardDrivers/E2213HS091.o: ../Appication/HardDrivers/E2213HS091.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

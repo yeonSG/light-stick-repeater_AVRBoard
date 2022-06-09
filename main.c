@@ -7,7 +7,8 @@
 
 #include "main.h"
 #include "util/delay.h"
-#include "Appication/HardDrivers/E2213JS0C1.h"
+//  #include "Appication/HardDrivers/E2213JS0C1.h"
+#include "Appication/HardDrivers/E2213HS091.h"
 #include "Appication/HardDrivers/image.h"
 
 void HAL_Delay(uint32_t Delay) {
@@ -41,29 +42,29 @@ void SPI_master_write(uint8_t data)
 }
 
 void example() {
-    E2213JS0C1_Init();
+    E2213HS091_Init();
     /* 显示图片测试 */
-    // E2213JS0C1_DrawImage(0,0,104,212,gImage_1);
-    E2213JS0C1_SendImageData();
-    E2213JS0C1_SendUpdateCmd();
-    E2213JS0C1_TurnOffDCDC();
+    // E2213HS091_DrawImage(0,0,104,212,gImage_1);
+    E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
     HAL_Delay(3000);
     /* 显示点�?�线、矩形�?�字符�?�bpm图片测试 */
-    E2213JS0C1_ClearFullScreen(WHITE);
-    E2213JS0C1_DrawPoint(0,0,RED);
-    E2213JS0C1_DrawLine(0,2,10,HORIZONTAL,BLACK);
-    E2213JS0C1_DrawLine(0,4,10,VERTICAL,BLACK);    
-    E2213JS0C1_DrawRectangle(0,16,10,10,SOLID,BLACK,RED);   
-    E2213JS0C1_DrawRectangle(20,16,10,10,HOLLOW,BLACK,RED);          
-    E2213JS0C1_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
-    E2213JS0C1_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
-    E2213JS0C1_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
-    E2213JS0C1_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
-    E2213JS0C1_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
-    E2213JS0C1_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
-    E2213JS0C1_SendImageData();
-    E2213JS0C1_SendUpdateCmd();
-    E2213JS0C1_TurnOffDCDC();
+    E2213HS091_ClearFullScreen(WHITE);
+    E2213HS091_DrawPoint(0,0,BLACK);
+    E2213HS091_DrawLine(0,2,10,HORIZONTAL,BLACK);
+    E2213HS091_DrawLine(0,4,10,VERTICAL,BLACK);    
+    E2213HS091_DrawRectangle(0,16,10,10,SOLID,BLACK,WHITE);   
+    E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
+    E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
+    E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
+    E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
+    E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
+    E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
+    E2213HS091_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
+    E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
 }
 
 int main(void)

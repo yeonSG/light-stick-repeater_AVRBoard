@@ -1,37 +1,39 @@
 ﻿/*
- * E2213JS0C1.h
+ * E2213HS091.h
  *
- * Created: 2022-06-07 오후 10:28:58
+ * Created: 2022-06-09 오후 8:26:21
  *  Author: YS
  */ 
 
-#ifndef E2213JS0C1_H_
-#define E2213JS0C1_H_
+
+#ifndef E2213HS091_H_
+#define E2213HS091_H_
+
 
 #include "../../main.h"
 
 // extern SPI_HandleTypeDef hspi1;
 /*引脚定义*************************************************************************/
 /* SPI号 */
-#define E2213JS0C1_SPI					(SPI1)
+#define E2213HS091_SPI					(SPI1)
 /* CS */
-#define E2213JS0C1_CS_ENABLE() \
-	setPin_CS(0)	// HAL_GPIO_WritePin(DO_SCREEN_CS_GPIO_Port, DO_SCREEN_CS_Pin ,GPIO_PIN_RESET)		
-#define E2213JS0C1_CS_DISABLE() \
-	setPin_CS(1)	// HAL_GPIO_WritePin(DO_SCREEN_CS_GPIO_Port, DO_SCREEN_CS_Pin ,GPIO_PIN_SET)
+#define E2213HS091_CS_ENABLE() \
+setPin_CS(0)	// HAL_GPIO_WritePin(DO_SCREEN_CS_GPIO_Port, DO_SCREEN_CS_Pin ,GPIO_PIN_RESET)
+#define E2213HS091_CS_DISABLE() \
+setPin_CS(1)	// HAL_GPIO_WritePin(DO_SCREEN_CS_GPIO_Port, DO_SCREEN_CS_Pin ,GPIO_PIN_SET)
 /* DC */
-#define E2213JS0C1_DC_DATA() \
-	setPin_DC(1)	// HAL_GPIO_WritePin(DO_SCREEN_DC_GPIO_Port, DO_SCREEN_DC_Pin,GPIO_PIN_SET)
-#define E2213JS0C1_DC_CMD() \
-	setPin_DC(0)	// HAL_GPIO_WritePin(DO_SCREEN_DC_GPIO_Port, DO_SCREEN_DC_Pin,GPIO_PIN_RESET)
+#define E2213HS091_DC_DATA() \
+setPin_DC(1)	// HAL_GPIO_WritePin(DO_SCREEN_DC_GPIO_Port, DO_SCREEN_DC_Pin,GPIO_PIN_SET)
+#define E2213HS091_DC_CMD() \
+setPin_DC(0)	// HAL_GPIO_WritePin(DO_SCREEN_DC_GPIO_Port, DO_SCREEN_DC_Pin,GPIO_PIN_RESET)
 /* RST */
-#define E2213JS0C1_RST_ENABLE() \
-	setPin_RST(1)	// HAL_GPIO_WritePin(DO_SCREEN_RST_GPIO_Port, DO_SCREEN_RST_Pin,GPIO_PIN_SET)
-#define E2213JS0C1_RST_DISABLE() \
-	setPin_RST(0)	// HAL_GPIO_WritePin(DO_SCREEN_RST_GPIO_Port, DO_SCREEN_RST_Pin,GPIO_PIN_RESET)
+#define E2213HS091_RST_ENABLE() \
+setPin_RST(1)	// HAL_GPIO_WritePin(DO_SCREEN_RST_GPIO_Port, DO_SCREEN_RST_Pin,GPIO_PIN_SET)
+#define E2213HS091_RST_DISABLE() \
+setPin_RST(0)	// HAL_GPIO_WritePin(DO_SCREEN_RST_GPIO_Port, DO_SCREEN_RST_Pin,GPIO_PIN_RESET)
 /* BUSY */
-#define E2213JS0C1_BUSY_READ() \
-	readPin_BUSY()	// HAL_GPIO_ReadPin(DI_SCREEN_BUSY_GPIO_Port,DI_SCREEN_BUSY_Pin)
+#define E2213HS091_BUSY_READ() \
+readPin_BUSY()	// HAL_GPIO_ReadPin(DI_SCREEN_BUSY_GPIO_Port,DI_SCREEN_BUSY_Pin)
 /*枚举*****************************************************************************/
 /* 方向：水平/垂直 */
 enum ENUM_ORIENTATION
@@ -47,45 +49,31 @@ enum ENUM_FILL
 };
 /*屏幕参数*************************************************************************/
 /* X轴坐标0~103；Y轴坐标0~211 */
-#define E2213JS0C1_W 104
-#define E2213JS0C1_H 212
-#define E2213JS0C1_XPOS_MAX 103
-#define E2213JS0C1_YPOS_MAX 211
-#define E2213JS0C1_BUFFER_SIZE (E2213JS0C1_W * E2213JS0C1_H / 8)
-#define E2213JS0C1_BUFFER_WIDTH_SIZE (E2213JS0C1_W / 8)
-#define E2213JS0C1_BUFFER_HEIGHT_SIZE (E2213JS0C1_H)
+#define E2213HS091_W 104
+#define E2213HS091_H 212
+#define E2213HS091_XPOS_MAX 103
+#define E2213HS091_YPOS_MAX 211
+#define E2213HS091_BUFFER_SIZE (E2213HS091_W * E2213HS091_H / 8)
+#define E2213HS091_BUFFER_WIDTH_SIZE (E2213HS091_W / 8)
+#define E2213HS091_BUFFER_HEIGHT_SIZE (E2213HS091_H)
 /*颜色*****************************************************************************/
 enum ENUM_COLOR
 {
-	RED,
 	WHITE,
 	BLACK,
-	GREY,
-	DARKRED,
-	LIGHTRED
+	GREY
 };
 /* 01红，00白，10黑 */
 #define RED_BUFFER1             0X00
-#define RED_BUFFER2             0XFF
+// #define RED_BUFFER2             0XFF
 #define WHITE_BUFFER1           0x00
-#define WHITE_BUFFER2           0x00
+// #define WHITE_BUFFER2           0x00
 #define BLACK_BUFFER1           0xFF
-#define BLACK_BUFFER2           0x00
+// #define BLACK_BUFFER2           0x00
 /* 红白相间=浅红色，红黑相间=深红色，黑白相间=灰色 */
 #define GREY_BUFFER1_SINGLE     0xAA
 #define GREY_BUFFER1_DOUBLE     0x55
-#define GREY_BUFFER2            0x00
-#define DARKRED_BUFFER1_SINGLE  0xAA
-#define DARKRED_BUFFER1_DOUBLE  0x55
-#define DARKRED_BUFFER2_SINGLE  0x55
-#define DARKRED_BUFFER2_DOUBLE  0xAA
-#define LIGHTRED_BUFFER1        0x00
-#define LIGHTRED_BUFFER2_SINGLE 0xAA
-#define LIGHTRED_BUFFER2_DOUBLE 0x55
-/* RGB565 */
-#define RGB565_RED              0xF800
-#define RGB565_WHITE            0xFFFF
-#define RGB565_BLACK            0x0000
+// #define GREY_BUFFER2            0x00
 /*字库*****************************************************************************/
 #define FONT_1608		    (0)
 #define FONT_1608_WIDTH		(8)
@@ -117,27 +105,26 @@ enum ENUM_COLOR
 /* 指定的某一位数置为指定的0或1 */
 #define WriteBit(data, position, flag)   (flag ? SetBit(data, position) : ClearBit(data, position))
 /*函数*******************************************************************************/
-void E2213JS0C1_Init(void);
-void E2213JS0C1_SendImageData(void);
-void E2213JS0C1_ClearFullScreen(enum ENUM_COLOR color);
-void E2213JS0C1_SendUpdateCmd(void);
-void E2213JS0C1_TurnOffDCDC(void);
-void E2213JS0C1_DrawPoint(uint8_t xPos, uint8_t yPos, enum ENUM_COLOR color);
-void E2213JS0C1_DrawLine(uint8_t xStart, uint8_t yStart, uint8_t length,
+void E2213HS091_Init(void);
+void E2213HS091_SendImageData(void);
+void E2213HS091_ClearFullScreen(enum ENUM_COLOR color);
+void E2213HS091_SendUpdateCmd(void);
+void E2213HS091_TurnOffDCDC(void);
+void E2213HS091_DrawPoint(uint8_t xPos, uint8_t yPos, enum ENUM_COLOR color);
+void E2213HS091_DrawLine(uint8_t xStart, uint8_t yStart, uint8_t length,
 enum ENUM_ORIENTATION orientation, enum ENUM_COLOR color);
-void E2213JS0C1_DrawRectangle(uint8_t xStart, uint8_t yStart, uint8_t width,
+void E2213HS091_DrawRectangle(uint8_t xStart, uint8_t yStart, uint8_t width,
 uint8_t height, enum ENUM_FILL fill, enum ENUM_COLOR borderColor,
 enum ENUM_COLOR fillColor);
-uint8_t E2213JS0C1_ShowChar(uint8_t xStart, uint8_t yStart, char chr,
+uint8_t E2213HS091_ShowChar(uint8_t xStart, uint8_t yStart, char chr,
 uint8_t font, enum ENUM_COLOR fontColor, enum ENUM_COLOR backgroundColor);
-uint8_t E2213JS0C1_ShowCharStr(uint8_t xStart, uint8_t yStart, char* str,
+uint8_t E2213HS091_ShowCharStr(uint8_t xStart, uint8_t yStart, char* str,
 uint8_t font, enum ENUM_COLOR fontColor, enum ENUM_COLOR backgroundColor);
-void E2213JS0C1_DrawBmp(uint8_t xStart, uint8_t yStart, uint8_t bmpWidth,
+void E2213HS091_DrawBmp(uint8_t xStart, uint8_t yStart, uint8_t bmpWidth,
 uint8_t bmpHeight, enum ENUM_COLOR fontColor, enum ENUM_COLOR backgroundColor,
 const unsigned char* pic);
-// void E2213JS0C1_DrawImage(uint8_t xStart, uint8_t yStart, uint8_t imageWidth,
+// void E2213HS091_DrawImage(uint8_t xStart, uint8_t yStart, uint8_t imageWidth,
 // uint8_t imageHeight, const unsigned char* pic);
 
 
-
-#endif /* E2213JS0C1_H_ */
+#endif /* E2213HS091_H_ */

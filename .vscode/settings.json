@@ -5,6 +5,7 @@
         "stdint.h": "c",
         "e2213js0c1.h": "c",
         "image.h": "c",
-        "font.h": "c"
+        "font.h": "c",
+        "e2213hs091.h": "c"
     }
 }
