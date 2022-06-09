@@ -9,6 +9,7 @@
 #include "stdint.h"
 // #include "stm32f1xx_hal_spi.h"
 #include "font.h"
+#include <avr/pgmspace.h>
 
 
 static void E2213HS091_SendReadByte(uint8_t byte);
@@ -398,7 +399,8 @@ uint8_t E2213HS091_ShowChar(uint8_t xStart, uint8_t yStart, char chr,
             /* 列循环 */
             for (uint8_t t = 0; t < fontHeight; t++)
             {                   
-                temp = ACSII_1608[(uint8_t)chr][t];
+                // temp = ACSII_1608[(uint8_t)chr][t];
+                temp = pgm_read_byte(&ACSII_1608[(uint8_t)chr][t]);
                 /* 行循环 */
                 for (uint8_t i = 0; i < fontWidth; i++)
                 {
