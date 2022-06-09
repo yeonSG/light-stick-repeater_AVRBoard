@@ -3,29 +3,29 @@ avrMCU.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000013c  2**0
+  0 .data         00000000  00800100  00800100  00000158  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000e8  00000000  00000000  00000054  2**1
+  1 .text         00000104  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  0000013c  2**0
+  2 .comment      00000030  00000000  00000000  00000158  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000016c  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000188  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000040  00000000  00000000  000001a8  2**0
+  4 .debug_aranges 00000068  00000000  00000000  000001c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000cd0  00000000  00000000  000001e8  2**0
+  5 .debug_info   00000d85  00000000  00000000  0000022c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000008b6  00000000  00000000  00000eb8  2**0
+  6 .debug_abbrev 000008dd  00000000  00000000  00000fb1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000003b9  00000000  00000000  0000176e  2**0
+  7 .debug_line   0000045f  00000000  00000000  0000188e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000078  00000000  00000000  00001b28  2**2
+  8 .debug_frame  000000c8  00000000  00000000  00001cf0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000057e  00000000  00000000  00001ba0  2**0
+  9 .debug_str    000005b4  00000000  00000000  00001db8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000000c3  00000000  00000000  0000211e  2**0
+ 10 .debug_loc    0000018f  00000000  00000000  0000236c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000030  00000000  00000000  000021e1  2**0
+ 11 .debug_ranges 00000058  00000000  00000000  000024fb  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -114,8 +114,8 @@ Disassembly of section .text:
   98:	11 e0       	ldi	r17, 0x01	; 1
   9a:	a0 e0       	ldi	r26, 0x00	; 0
   9c:	b1 e0       	ldi	r27, 0x01	; 1
-  9e:	e8 ee       	ldi	r30, 0xE8	; 232
-  a0:	f0 e0       	ldi	r31, 0x00	; 0
+  9e:	e4 e0       	ldi	r30, 0x04	; 4
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
   a2:	00 e0       	ldi	r16, 0x00	; 0
   a4:	0b bf       	out	0x3b, r16	; 59
   a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
@@ -138,8 +138,8 @@ Disassembly of section .text:
   bc:	a0 30       	cpi	r26, 0x00	; 0
   be:	b2 07       	cpc	r27, r18
   c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
-  c2:	0e d0       	rcall	.+28     	; 0xe0 <main>
-  c4:	0f c0       	rjmp	.+30     	; 0xe4 <_exit>
+  c2:	1b d0       	rcall	.+54     	; 0xfa <main>
+  c4:	1d c0       	rjmp	.+58     	; 0x100 <_exit>
 
 000000c6 <__bad_interrupt>:
   c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
@@ -152,29 +152,46 @@ Disassembly of section .text:
     E2213HS091_TurnOffDCDC();
 }
   c8:	87 b3       	in	r24, 0x17	; 23
-  ca:	87 7f       	andi	r24, 0xF7	; 247
-  cc:	87 bb       	out	0x17, r24	; 23
-  ce:	87 b3       	in	r24, 0x17	; 23
-  d0:	87 60       	ori	r24, 0x07	; 7
-  d2:	87 bb       	out	0x17, r24	; 23
-  d4:	8d b1       	in	r24, 0x0d	; 13
-  d6:	81 60       	ori	r24, 0x01	; 1
-  d8:	8d b9       	out	0x0d, r24	; 13
-  da:	80 e5       	ldi	r24, 0x50	; 80
-  dc:	8d b9       	out	0x0d, r24	; 13
-  de:	08 95       	ret
+  ca:	87 bb       	out	0x17, r24	; 23
+  cc:	87 b3       	in	r24, 0x17	; 23
+  ce:	86 61       	ori	r24, 0x16	; 22
+  d0:	87 bb       	out	0x17, r24	; 23
+  d2:	8d b1       	in	r24, 0x0d	; 13
+  d4:	81 60       	ori	r24, 0x01	; 1
+  d6:	8d b9       	out	0x0d, r24	; 13
+  d8:	80 e5       	ldi	r24, 0x50	; 80
+  da:	8d b9       	out	0x0d, r24	; 13
+  dc:	08 95       	ret
 
-000000e0 <main>:
+000000de <init_GPIO>:
+  de:	87 b3       	in	r24, 0x17	; 23
+  e0:	87 bb       	out	0x17, r24	; 23
+  e2:	28 b3       	in	r18, 0x18	; 24
+  e4:	81 e0       	ldi	r24, 0x01	; 1
+  e6:	90 e0       	ldi	r25, 0x00	; 0
+  e8:	02 c0       	rjmp	.+4      	; 0xee <init_GPIO+0x10>
+  ea:	88 0f       	add	r24, r24
+  ec:	99 1f       	adc	r25, r25
+  ee:	2a 95       	dec	r18
+  f0:	e2 f7       	brpl	.-8      	; 0xea <init_GPIO+0xc>
+  f2:	97 b3       	in	r25, 0x17	; 23
+  f4:	89 2b       	or	r24, r25
+  f6:	87 bb       	out	0x17, r24	; 23
+  f8:	08 95       	ret
+
+000000fa <main>:
 
 int main(void)
 {
     /* Replace with your application code */
     init_spi_master();
-  e0:	f3 df       	rcall	.-26     	; 0xc8 <init_spi_master>
-  e2:	ff cf       	rjmp	.-2      	; 0xe2 <main+0x2>
+  fa:	e6 df       	rcall	.-52     	; 0xc8 <init_spi_master>
+    init_GPIO();
+  fc:	f0 df       	rcall	.-32     	; 0xde <init_GPIO>
+  fe:	ff cf       	rjmp	.-2      	; 0xfe <main+0x4>
 
-000000e4 <_exit>:
-  e4:	f8 94       	cli
+00000100 <_exit>:
+ 100:	f8 94       	cli
 
-000000e6 <__stop_program>:
-  e6:	ff cf       	rjmp	.-2      	; 0xe6 <__stop_program>
+00000102 <__stop_program>:
+ 102:	ff cf       	rjmp	.-2      	; 0x102 <__stop_program>

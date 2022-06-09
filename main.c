@@ -20,11 +20,10 @@ void HAL_Delay(uint32_t Delay) {
     // _delay_ms((double)Delay);
 }
 
- void init_spi_master()
- {
+ void init_spi_master() {
 	 SPI_DDR &= ~(1<<MISO); 	 // MISO --> inputs     // 필요없음
-	 SPI_DDR |= (1 << SS) | (1 << MOSI) | (1 << SCK); // MOSI, SCK, SS   --> output
-
+     // MOSI, SCK, SS   --> output
+	 SPI_DDR |= (1 << SS) | (1 << MOSI) | (1 << SCK); 
 	 
 	 //16000KHz / 16
 	 SPCR |= (1 << SPR0);
@@ -33,12 +32,38 @@ void HAL_Delay(uint32_t Delay) {
 	 SPCR = (1 << SPE) | (1 << MSTR);
  }
 
+ void init_GPIO() {
+     SPI_DDR &= ~(1 << SPI_BUSY_Pin);   // input
+	 SPI_DDR |= (1 << SPI_DC_Pin) | (1 << SPI_RST_Pin) | (1 << SPI_BS_Port);     // output
+ }
 
-void SPI_master_write(uint8_t data)
-{
+
+void SPI_master_write(uint8_t data) {
 	SPDR = data;
 
 	while (!(SPSR & (1 << SPIF))) ;     // 전송이 완료될때까지 기다림
+}
+
+void setPin_CS(int set) {
+    if (set)
+        SPI_PORT |= SS;
+    else
+        SPI_PORT &= ~SS;
+}
+void setPin_DC(int set) {
+    if (set)
+        SPI_DC_Port |= SPI_DC_Pin;
+    else
+        SPI_DC_Port &= ~SPI_DC_Pin;
+}
+void setPin_RST(int set) {
+    if (set)
+        SPI_RST_Port |= SPI_RST_Pin;
+    else
+        SPI_RST_Port &= ~SPI_RST_Pin;
+}
+int readPin_BUSY() {
+    return (PINB & SPI_BUSY_Pin);
 }
 
 void example() {
@@ -71,6 +96,7 @@ int main(void)
 {
     /* Replace with your application code */
     init_spi_master();
+    init_GPIO();
 
     while (1) 
     {

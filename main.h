@@ -22,11 +22,25 @@
  //2.시스템 클록과 원하는 baud rate를 이용하여 UBRR 값을 계산한다.
 #define UBRR_VALUE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
 
+// 기본 SPI 핀
 #define SPI_DDR DDRB        // Data Direction, 데이터 방향 레지스터
-#define SS PINB0            // SlaveSelect(Chip Select)
-#define MOSI PINB2          // MasterOut
-#define MISO PINB3          // MasterInput
-#define SCK PINB1           // Clock
+#define SPI_PORT PORTB      // SPI Port
+#define SPI_PIN PINB        // Pin Address, 핀 주소, 값 읽어올때 사용
+#define SS 0x01            // SlaveSelect(Chip Select)
+#define SCK 0x02           // Clock
+#define MOSI 0x04          // MasterOut
+#define MISO 0x08          // MasterInput
+
+// 추가 핀
+#define SPI_DC_Pin 0x10
+#define SPI_DC_Port PORTB
+#define SPI_BUSY_Pin 0x20
+#define SPI_BUSY_Port PORTB
+#define SPI_RST_Pin 0x40            
+#define SPI_RST_Port PORTB
+#define SPI_BS_Pin 0x80
+#define SPI_BS_Port PORTB
+
   
 
 // #define DI_SCREEN_BUSY_Pin GPIO_PIN_1   // BUSY GPIO의 핀 (BUSY)        : Busy
@@ -48,6 +62,17 @@
  */
 void HAL_Delay(uint32_t Delay);
 
+
+/**
+ * @brief SPI Init
+ */
+void init_spi_master();
+
+/**
+ * @brief SPI로 데이터 전송함
+ */
+void SPI_master_write(uint8_t data);
+
 /**
  * @brief Set/Clear ChipSelect pin
  */
@@ -64,17 +89,6 @@ void setPin_RST(int set);
  * @brief Read Busy Pin
  */
 int readPin_BUSY();
-
-/**
- * @brief SPI Init
- */
-void init_spi_master();
-
-/**
- * @brief SPI로 데이터 전송함
- */
-void SPI_master_write(uint8_t data);
-
 
 
 #endif /* MAIN_H_ */
