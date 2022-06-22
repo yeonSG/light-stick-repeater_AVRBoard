@@ -31,17 +31,20 @@ light-stick-repeater의 AVRBoard 코드
 ## 참고용코드2)
  [또다른 코드](https://github.com/szongen/ESP32_ePaper)
 
+## 참고용코드3)
+ [공식 코드(아두이노 기반)](https://github.com/PervasiveDisplays/EPD_Driver_GU_small)
+
 
 
 # EDP 구현 TODO. 
  ## 핀 Out 확인
- - ??   ->  LCD_SI      Display SPI Data Pin
- - ??   ->  LCD_REST_N  Display Reset Pin
- - ??   ->  LCD_SCLK    Display SPI Clock Pin
- - ??   ->  LCD_SCS      Display SPI Chip select Pin
- - ??   ->  LCD_BS      ??
- - ??   ->  LCD_DC      Display Data/Command Control Pin
- - ??   <-  LCD_BUSY_N  Display Busy Pin
+ - PB3(0x08)   ->  LCD_SI      Display SPI Data Pin (MOSI)
+ - PB1(0x02)   ->  LCD_SCLK    Display SPI Clock Pin
+ - PB0(0x01)   ->  LCD_SCS      Display SPI Chip select Pin
+ - PE4(0x10)   ->  LCD_BS      ??
+ - PE5(0x20)   <-  LCD_BUSY_N  Display Busy Pin
+ - PE6(0x40)   ->  LCD_REST_N  Display Reset Pin
+ - PE7(0x80)   ->  LCD_DC      Display Data/Command Control Pin
 
  ## 질문사항    
  - BS 핀은 용도가 뭘까?
