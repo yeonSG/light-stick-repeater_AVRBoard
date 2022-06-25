@@ -7,9 +7,16 @@
 
 #include "main.h"
 #include "util/delay.h"
-//  #include "Appication/HardDrivers/E2213JS0C1.h"
 #include "Appication/HardDrivers/E2213HS091.h"
 #include "Appication/HardDrivers/image.h"
+
+void HAL_Delay_us(uint32_t _us) {
+	while (0 < _us)
+	{
+		_delay_us(1);
+		--_us;
+	}
+}
 
 void HAL_Delay(uint32_t Delay) {
 	while (0 < Delay)
@@ -17,31 +24,82 @@ void HAL_Delay(uint32_t Delay) {
 		_delay_ms(1);
 		--Delay;
 	}
-    // _delay_ms((double)Delay);
 }
 
  void init_spi_master() {
-	 SPI_DDR &= ~(1<<MISO); 	 // MISO --> inputs     // 필요없음
-     // MOSI, SCK, SS   --> output
-	 SPI_DDR |= (1 << SS) | (1 << MOSI) | (1 << SCK); 
-	 
-	 //16000KHz / 16
-	 SPCR |= (1 << SPR0);
-	
-	 // Enable SPI, Master mode
-	 SPCR = (1 << SPE) | (1 << MSTR);
+
+    // SPI_DDR |= (1 << SS);	
+	// SPI_DDR |= (1 << MOSI);
+	// SPI_DDR |= (1 << SCK);
+	SPI_DDR = 0x0B;
+	CLR_CLK;
+	CLR_DAT;
  }
 
  void init_GPIO() {
-     SPI_DDR &= ~(1 << SPI_BUSY_Pin);   // input
-	 SPI_DDR |= (1 << SPI_DC_Pin) | (1 << SPI_RST_Pin) | (1 << SPI_BS_Port);     // output
+    // LCD_DDR &= ~(1 << LCD_BUSY);   // input
+	// LCD_DDR |= (1 << LCD_DC);     // output
+	// LCD_DDR |= (1 << LCD_RST); 
+	// LCD_DDR |= (1 << LCD_BS);
+	LCD_DDR = 0xD0;		// 1101_0000
+
+    LCD_BS_Port &= ~LCD_BS; // BS pin Clear.
+
+	/*  */
+	setPin_DC(1);
+	setPin_RST(1);
+	setPin_CS(1);
  }
 
+void spiTransferByte_c(unsigned char data)
+{	
+	CLR_CLK;asm("nop");
+	if (data&128) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&64) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&32) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&16) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&8) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&4) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&2) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+
+	CLR_CLK;asm("nop");
+	if (data&1) SET_DAT; else CLR_DAT;
+	SET_CLK;
+	asm("nop");
+	
+	CLR_CLK;
+
+	data=0;
+}
 
 void SPI_master_write(uint8_t data) {
-	SPDR = data;
-
-	while (!(SPSR & (1 << SPIF))) ;     // 전송이 완료될때까지 기다림
+    spiTransferByte_c(data);
 }
 
 void setPin_CS(int set) {
@@ -52,54 +110,84 @@ void setPin_CS(int set) {
 }
 void setPin_DC(int set) {
     if (set)
-        SPI_DC_Port |= SPI_DC_Pin;
+        LCD_DC_Port |= LCD_DC;
     else
-        SPI_DC_Port &= ~SPI_DC_Pin;
+        LCD_DC_Port &= ~LCD_DC;
 }
-void setPin_RST(int set) {
+void setPin_RST(int set) {		// 네거티브니까 0으로 해야 리셋
     if (set)
-        SPI_RST_Port |= SPI_RST_Pin;
+        LCD_RST_Port |= LCD_RST;
     else
-        SPI_RST_Port &= ~SPI_RST_Pin;
+        LCD_RST_Port &= ~LCD_RST;
 }
 int readPin_BUSY() {
-    return (PINB & SPI_BUSY_Pin);
+	if ((LCD_BUSY_Pin & LCD_BUSY) == LCD_BUSY)
+		return HIGH;
+	else
+		return LOW;
 }
 
 void example() {
-    E2213HS091_Init();
+    // HAL_Delay(50);
+    // E2213HS091_Init();		// ok
     /* 显示图片测试 */
-    // E2213HS091_DrawImage(0,0,104,212,gImage_1);
-    E2213HS091_SendImageData();
-    E2213HS091_SendUpdateCmd();
-    E2213HS091_TurnOffDCDC();
-    HAL_Delay(3000);
+    // // // E2213HS091_DrawImage(0,0,104,212,gImage_1);
+    // E2213HS091_SendImageData();
+    // E2213HS091_SendUpdateCmd();
+    // E2213HS091_TurnOffDCDC();
+    // HAL_Delay(3000);
     /* 显示点�?�线、矩形�?�字符�?�bpm图片测试 */
-    E2213HS091_ClearFullScreen(WHITE);
-    E2213HS091_DrawPoint(0,0,BLACK);
-    E2213HS091_DrawLine(0,2,10,HORIZONTAL,BLACK);
-    E2213HS091_DrawLine(0,4,10,VERTICAL,BLACK);    
-    E2213HS091_DrawRectangle(0,16,10,10,SOLID,BLACK,WHITE);   
-    E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
-    E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
-    E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
-    E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
-    E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
-    E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
-    E2213HS091_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
-    E2213HS091_SendImageData();
-    E2213HS091_SendUpdateCmd();
-    E2213HS091_TurnOffDCDC();
+    // E2213HS091_ClearFullScreen(WHITE);
+    // E2213HS091_DrawPoint(0,0,BLACK);
+    // E2213HS091_DrawLine(0,2,10,HORIZONTAL,BLACK);
+    // E2213HS091_DrawLine(0,4,10,VERTICAL,BLACK);    
+    // E2213HS091_DrawRectangle(0,16,10,10,SOLID,BLACK,WHITE);   
+    // E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
+    // E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
+    // E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
+    // E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
+    // E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
+    // E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
+    // E2213HS091_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
+    // E2213HS091_SendImageData();
+    // E2213HS091_SendUpdateCmd();
+    // E2213HS091_TurnOffDCDC();
 }
 
 int main(void)
 {
-    /* Replace with your application code */
+	/* 테스트 */
+	// LCD_DDR = ~LCD_BUSY;
+	// while(1) {
+	// 	LCD_BUSY_Port = LCD_BUSY;
+	// 	HAL_Delay(1000);
+	// 	LCD_BUSY_Port = 0x00;
+	// 	HAL_Delay(1000);
+	// }
+	
+    /* 본 코드 */
     init_spi_master();
-    init_GPIO();
-
+    init_GPIO();	
+	E2213HS091_Init();
+	
+	DDRA = 0xFF;
     while (1) 
     {
+	    PORTA = 0xFF;
+		E2213HS091_ClearFullScreen(BLACK);
+		E2213HS091_SendImageData();
+
+		E2213HS091_SendUpdateCmd();
+		// E2213HS091_TurnOffDCDC();
+		HAL_Delay(3000);
+		
+		PORTA = 0x00;
+		E2213HS091_ClearFullScreen(WHITE);
+		E2213HS091_SendImageData();
+		
+		E2213HS091_SendUpdateCmd();
+		// E2213HS091_TurnOffDCDC();
+	    HAL_Delay(3000);
     }
 }
 

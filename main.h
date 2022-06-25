@@ -14,13 +14,10 @@
 #include <avr/io.h>
 
 //0. Clock - 외부 크리스탈과 동일한 값 정의홤.
-#define F_CPU 16000000UL    // 16MHz
+#define F_CPU 8000000UL    // 8MHz
 
- //1. baud rate를 선택
-#define USART_BAUDRATE 9600
- 
- //2.시스템 클록과 원하는 baud rate를 이용하여 UBRR 값을 계산한다.
-#define UBRR_VALUE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
+#define HIGH 1
+#define LOW 0
 
 // 기본 SPI 핀
 #define SPI_DDR DDRB        // Data Direction, 데이터 방향 레지스터
@@ -28,39 +25,33 @@
 #define SPI_PIN PINB        // Pin Address, 핀 주소, 값 읽어올때 사용
 #define SS 0x01            // SlaveSelect(Chip Select)
 #define SCK 0x02           // Clock
-#define MOSI 0x04          // MasterOut
-#define MISO 0x08          // MasterInput
+#define MOSI 0x08          // MasterOut 
+// #define MISO 0x08          // MasterInput * NOTUSE
 
 // 추가 핀
-#define SPI_DC_Pin 0x10
-#define SPI_DC_Port PORTB
-#define SPI_BUSY_Pin 0x20
-#define SPI_BUSY_Port PORTB
-#define SPI_RST_Pin 0x40            
-#define SPI_RST_Port PORTB
-#define SPI_BS_Pin 0x80
-#define SPI_BS_Port PORTB
+#define LCD_DDR DDRE
+#define LCD_DC 0x80
+#define LCD_DC_Port PORTE
+#define LCD_BUSY 0x20
+#define LCD_BUSY_Pin PINE
+#define LCD_BUSY_Port PORTE
+#define LCD_RST 0x40            
+#define LCD_RST_Port PORTE      
+#define LCD_BS 0x10
+#define LCD_BS_Port PORTE
 
-  
 
-// #define DI_SCREEN_BUSY_Pin GPIO_PIN_1   // BUSY GPIO의 핀 (BUSY)        : Busy
-// #define DI_SCREEN_BUSY_GPIO_Port GPIOA  // BUSY GPIO의 포트
-// #define DO_SCREEN_DC_Pin GPIO_PIN_2     // DC   GPIO의 핀 (DC)          : Data/Command Control
-// #define DO_SCREEN_DC_GPIO_Port GPIOA    // DC   GPIO의 포트
-// #define DO_SCREEN_RST_Pin GPIO_PIN_3    // RST  GPIO의 핀 (RST, RST)    : Reset
-// #define DO_SCREEN_RST_GPIO_Port GPIOA   // RST  GPIO의 포트
-// #define DO_SCREEN_CS_Pin GPIO_PIN_4     // CS   GPIO의 핀 (CSB, SCS)    : Chip Select
-// #define DO_SCREEN_CS_GPIO_Port GPIOA    // CS   GPIO의 포트
-// #define DO_SCREEN_CLK_Pin GPIO_PIN_5    // CLK  GPIO의 핀 (SCL, SCLK)   : Clock(SPI)
-// #define DO_SCREEN_CLK_GPIO_Port GPIOA   // CLK  GPIO의 포트 
-// #define MO_SCREEN_MOSI_Pin GPIO_PIN_7   // MOSI GPIO의 핀 (SDA, SI)     : Data(SPI)
-// #define MO_SCREEN_MOSI_GPIO_Port GPIOA  // MOSI GPIO의 포트 
+#define SET_CLK SPI_PORT |= SCK  
+#define CLR_CLK SPI_PORT &= ~SCK 
+#define SET_DAT SPI_PORT |= MOSI 
+#define CLR_DAT SPI_PORT &= ~MOSI
 
 
 /**
  * @brief Do delay
  */
 void HAL_Delay(uint32_t Delay);
+void HAL_Delay_us(uint32_t _us);
 
 
 /**

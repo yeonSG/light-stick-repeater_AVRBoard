@@ -51,11 +51,18 @@ static void E2213HS091_SendReadByte(uint8_t byte)
  */
 static void E2213HS091_WriteRegIndex(uint8_t cmd)
 {
-    E2213HS091_CS_ENABLE();
+    // E2213HS091_CS_ENABLE();
+	// E2213HS091_DC_CMD();
+	// E2213HS091_SendReadByte(cmd);
+	// E2213HS091_DC_DATA();
+    // E2213HS091_CS_DISABLE();
 	E2213HS091_DC_CMD();
+    E2213HS091_CS_ENABLE();
+    HAL_Delay_us(500);
 	E2213HS091_SendReadByte(cmd);
-	E2213HS091_DC_DATA();
+    HAL_Delay_us(500);
     E2213HS091_CS_DISABLE();
+	E2213HS091_DC_DATA();
 }
 
 /**
@@ -65,8 +72,11 @@ static void E2213HS091_WriteRegIndex(uint8_t cmd)
  */
 static void E2213HS091_WriteData8(uint8_t data)
 {
+	E2213HS091_DC_DATA();   // 예비?
     E2213HS091_CS_ENABLE();
+    HAL_Delay_us(500);
 	E2213HS091_SendReadByte(data);
+    HAL_Delay_us(500);
     E2213HS091_CS_DISABLE();
 }
 
@@ -90,10 +100,23 @@ static void E2213HS091_WriteData8(uint8_t data)
  */
 static void E2213HS091_WaiteUntilNotBusy(void)
 {
-    while(E2213HS091_BUSY_READ() == 0)
+    while (E2213HS091_BUSY_READ() != HIGH)  // LOW 이면 바쁨
     { 
-        HAL_Delay(100);
+        HAL_Delay(10);
     }    
+}
+
+static void E2213HS091_WriteDummyData(uint32_t Size)
+{
+	uint32_t i = 0;
+    
+	E2213HS091_CS_ENABLE();	
+    HAL_Delay_us(500);
+    for (i = 0; i < Size; i++) {
+        E2213HS091_SendReadByte(0x00);
+    }
+    HAL_Delay_us(500);
+    E2213HS091_CS_DISABLE();
 }
 
 /**
@@ -104,30 +127,16 @@ static void E2213HS091_WaiteUntilNotBusy(void)
  */
 static void E2213HS091_WriteMultipleData(uint8_t *pData, uint32_t Size)
 {
-	/* 定义一个uint32_t变量，用于计数 */
 	uint32_t counter = 0;
-    
-	E2213HS091_CS_ENABLE();
-    E2213HS091_DC_DATA();
-	
-	/* 如果长度只有1个字节 */
-	if (Size == 1)
+
+	E2213HS091_CS_ENABLE();	
+    HAL_Delay_us(500);
+    for (counter = 0; counter < Size; counter++)
 	{
-		/* 如果只有一个字节，就直接调用通用函数发送就好 */
-		E2213HS091_SendReadByte(*pData);	
+		E2213HS091_SendReadByte(*(pData + counter));
+	    // E2213HS091_SendReadByte(*(pData + 1));
 	}
-	/* 如果长度大于1 */
-	else
-	{
-		/* 用for循环，把数据一个一个的发出去，这里是一次发两个u8，循环一次就发一个u16 */
-		for (counter = Size; counter != 0; counter--)
-		{
-			E2213HS091_SendReadByte(*pData);
-			E2213HS091_SendReadByte(*(pData + 1));
-			counter--;
-			pData += 2;
-		}
-	}
+    HAL_Delay_us(500);
     E2213HS091_CS_DISABLE();
 }
 
@@ -138,30 +147,36 @@ static void E2213HS091_WriteMultipleData(uint8_t *pData, uint32_t Size)
  */
 void E2213HS091_Init(void)
 {
+    uint8_t temp[2] = {PANEL_SET_DATA_1, PANEL_SET_DATA_2};
     /* 开启SPI */
 //    LL_SPI_Enable(E2213HS091_SPI); 
     
-    /* 硬件复位 */
+    /* _reset() */
+    HAL_Delay(5);
     E2213HS091_RST_ENABLE();
     HAL_Delay(5);
     E2213HS091_RST_DISABLE();
     HAL_Delay(10);
     E2213HS091_RST_ENABLE();
     HAL_Delay(5);
-    /* 软件复位 */
+    E2213HS091_CS_DISABLE();
+    HAL_Delay(1);
+    /* _softReset() */
     E2213HS091_WriteRegIndex(SOFT_RESET_CMD);
     E2213HS091_WriteData8(SOFT_RESET_DATA);
-    HAL_Delay(5);
-    /* 设置环境温度（写死25摄氏度） */
+    E2213HS091_WaiteUntilNotBusy();     // Wait busy
+    // HAL_Delay(5);
+    /* Input Temperature: 25C */
     E2213HS091_WriteRegIndex(SET_TEMP_CMD);
     E2213HS091_WriteData8(SET_TEMP_25_DATA);
     /* Active Temperature */
     E2213HS091_WriteRegIndex(ACTIVE_TEMP_CMD);
     E2213HS091_WriteData8(ACTIVE_TEMP_25_DATA);
-//    /* Panel Settings，官方手册中说要，但是代码中没有体现，所以注释掉 */
-//    E2213HS091_WriteRegIndex(PANEL_SET_CMD);
-//    E2213HS091_WriteData8(PANEL_SET_DATA_1);
-//    E2213HS091_WriteData8(PANEL_SET_DATA_2);   
+    /* Panel Settings，PSR */
+    E2213HS091_WriteRegIndex(PANEL_SET_CMD);
+    E2213HS091_WriteMultipleData(temp, 2);
+    // E2213HS091_WriteData8(PANEL_SET_DATA_1);
+    // E2213HS091_WriteData8(PANEL_SET_DATA_2);   
 }
 
 /**
@@ -173,9 +188,10 @@ void E2213HS091_SendImageData(void)
 {
     /* 发送第一个Frame的数据 */
     E2213HS091_WriteRegIndex(FIRST_FRAME_CMD); 
-    E2213HS091_WriteMultipleData(E2213HS091_FirstFrameBuffer,E2213HS091_BUFFER_SIZE);    
+    E2213HS091_WriteMultipleData(E2213HS091_FirstFrameBuffer, E2213HS091_BUFFER_SIZE);    // 2765Byte
     /* 发送第二个Frame的数据 */  
-    // E2213HS091_WriteRegIndex(SECOND_FRAME_CMD);
+    E2213HS091_WriteRegIndex(SECOND_FRAME_CMD);
+    E2213HS091_WriteDummyData(E2213HS091_BUFFER_SIZE);
     // E2213HS091_WriteMultipleData(E2213HS091_SecondFrameBuffer,E2213HS091_BUFFER_SIZE);
 }
 
@@ -190,10 +206,14 @@ void E2213HS091_SendUpdateCmd(void)
     E2213HS091_WaiteUntilNotBusy();
     /* Power on command，打开DC/DC */
     E2213HS091_WriteRegIndex(TURN_ON_DCDC_CMD);
+    E2213HS091_WriteData8(SOFT_RESET_CMD);
+    // E2213HS091_WriteRegIndex(TURN_ON_DCDC_CMD);
     /* 等待BUSY变成高电平 */
     E2213HS091_WaiteUntilNotBusy();
     /* 刷新显示 */
     E2213HS091_WriteRegIndex(DISPLAY_REFRESH_CMD);
+    E2213HS091_WriteData8(SOFT_RESET_CMD);
+    // E2213HS091_WriteRegIndex(DISPLAY_REFRESH_CMD);
     /* 等待BUSY变成高电平 */
     E2213HS091_WaiteUntilNotBusy();
 }
@@ -206,6 +226,7 @@ void E2213HS091_SendUpdateCmd(void)
 void E2213HS091_TurnOffDCDC(void)
 {
     /* 关闭DC/DC命令 */
+    E2213HS091_WriteRegIndex(TURN_OFF_DCDC_CMD);
     E2213HS091_WriteRegIndex(TURN_OFF_DCDC_CMD);
     /* 等待BUSY变成高电平 */
     E2213HS091_WaiteUntilNotBusy();
@@ -223,7 +244,8 @@ void E2213HS091_ClearFullScreen(enum ENUM_COLOR color)
     uint16_t i,j;
     uint8_t buffer1;
     // uint8_t buffer2;
-    uint8_t buffer1Single,buffer1Double;
+    uint8_t buffer1Single = 0x00;
+	uint8_t buffer1Double = 0x00;
     // uint8_t buffer2Single,buffer2Double;
     /* 根据函数输入的颜色，确定要刷入两个buffer的数据 */
     switch(color)

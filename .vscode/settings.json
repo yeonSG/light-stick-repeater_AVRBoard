@@ -6,6 +6,8 @@
         "e2213js0c1.h": "c",
         "image.h": "c",
         "font.h": "c",
-        "e2213hs091.h": "c"
+        "e2213hs091.h": "c",
+        "define.h": "c",
+        "spi0.h": "c"
     }
 }

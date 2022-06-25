@@ -85,9 +85,9 @@ enum ENUM_COLOR
 #define SET_TEMP_25_DATA        0x19
 #define ACTIVE_TEMP_CMD         0xE0
 #define ACTIVE_TEMP_25_DATA     0x02
-//#define PANEL_SET_CMD         0x00
-//#define PANEL_SET_DATA_1      0xCF
-//#define PANEL_SET_DATA_2      0x89
+#define PANEL_SET_CMD         	0x00
+#define PANEL_SET_DATA_1      	0xCF
+#define PANEL_SET_DATA_2      	0x8D  // 0x89
 #define FIRST_FRAME_CMD         0x10
 #define SECOND_FRAME_CMD        0x13
 #define TURN_ON_DCDC_CMD        0x04

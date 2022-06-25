@@ -1,0 +1,631 @@
+
+avrMCU.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000004c0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000044c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000ac4  00800100  00800100  000004c0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000004c0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000004f0  2**2
+                  CONTENTS, READONLY
+  5 .debug_info   00000780  00000000  00000000  0000052c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000718  00000000  00000000  00000cac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000016a  00000000  00000000  000013c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    0000027d  00000000  00000000  0000152e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	60 c0       	rjmp	.+192    	; 0xc6 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	5e c0       	rjmp	.+188    	; 0xc6 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	5c c0       	rjmp	.+184    	; 0xc6 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	5a c0       	rjmp	.+180    	; 0xc6 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	58 c0       	rjmp	.+176    	; 0xc6 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	56 c0       	rjmp	.+172    	; 0xc6 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	54 c0       	rjmp	.+168    	; 0xc6 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	52 c0       	rjmp	.+164    	; 0xc6 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	50 c0       	rjmp	.+160    	; 0xc6 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	4e c0       	rjmp	.+156    	; 0xc6 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	4c c0       	rjmp	.+152    	; 0xc6 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	4a c0       	rjmp	.+148    	; 0xc6 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	48 c0       	rjmp	.+144    	; 0xc6 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	46 c0       	rjmp	.+140    	; 0xc6 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	44 c0       	rjmp	.+136    	; 0xc6 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	42 c0       	rjmp	.+132    	; 0xc6 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	40 c0       	rjmp	.+128    	; 0xc6 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	3e c0       	rjmp	.+124    	; 0xc6 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	3c c0       	rjmp	.+120    	; 0xc6 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	3a c0       	rjmp	.+116    	; 0xc6 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	38 c0       	rjmp	.+112    	; 0xc6 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	36 c0       	rjmp	.+108    	; 0xc6 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	34 c0       	rjmp	.+104    	; 0xc6 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	32 c0       	rjmp	.+100    	; 0xc6 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	30 c0       	rjmp	.+96     	; 0xc6 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	2e c0       	rjmp	.+92     	; 0xc6 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	2c c0       	rjmp	.+88     	; 0xc6 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	2a c0       	rjmp	.+84     	; 0xc6 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	28 c0       	rjmp	.+80     	; 0xc6 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	26 c0       	rjmp	.+76     	; 0xc6 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	24 c0       	rjmp	.+72     	; 0xc6 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	22 c0       	rjmp	.+68     	; 0xc6 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	20 c0       	rjmp	.+64     	; 0xc6 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	1e c0       	rjmp	.+60     	; 0xc6 <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	ec e4       	ldi	r30, 0x4C	; 76
+  a0:	f4 e0       	ldi	r31, 0x04	; 4
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a0 30       	cpi	r26, 0x00	; 0
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+
+000000b2 <__do_clear_bss>:
+  b2:	2b e0       	ldi	r18, 0x0B	; 11
+  b4:	a0 e0       	ldi	r26, 0x00	; 0
+  b6:	b1 e0       	ldi	r27, 0x01	; 1
+  b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
+
+000000ba <.do_clear_bss_loop>:
+  ba:	1d 92       	st	X+, r1
+
+000000bc <.do_clear_bss_start>:
+  bc:	a4 3c       	cpi	r26, 0xC4	; 196
+  be:	b2 07       	cpc	r27, r18
+  c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
+  c2:	a7 d1       	rcall	.+846    	; 0x412 <main>
+  c4:	c1 c1       	rjmp	.+898    	; 0x448 <_exit>
+
+000000c6 <__bad_interrupt>:
+  c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
+
+000000c8 <E2213HS091_WaiteUntilNotBusy>:
+  c8:	9e d1       	rcall	.+828    	; 0x406 <readPin_BUSY>
+  ca:	01 97       	sbiw	r24, 0x01	; 1
+  cc:	31 f0       	breq	.+12     	; 0xda <E2213HS091_WaiteUntilNotBusy+0x12>
+  ce:	6a e0       	ldi	r22, 0x0A	; 10
+  d0:	70 e0       	ldi	r23, 0x00	; 0
+  d2:	80 e0       	ldi	r24, 0x00	; 0
+  d4:	90 e0       	ldi	r25, 0x00	; 0
+  d6:	1d d1       	rcall	.+570    	; 0x312 <HAL_Delay>
+  d8:	f7 cf       	rjmp	.-18     	; 0xc8 <E2213HS091_WaiteUntilNotBusy>
+  da:	08 95       	ret
+
+000000dc <E2213HS091_WriteData8>:
+  dc:	cf 93       	push	r28
+  de:	c8 2f       	mov	r28, r24
+  e0:	81 e0       	ldi	r24, 0x01	; 1
+  e2:	90 e0       	ldi	r25, 0x00	; 0
+  e4:	84 d1       	rcall	.+776    	; 0x3ee <setPin_DC>
+  e6:	80 e0       	ldi	r24, 0x00	; 0
+  e8:	90 e0       	ldi	r25, 0x00	; 0
+  ea:	7b d1       	rcall	.+758    	; 0x3e2 <setPin_CS>
+  ec:	64 ef       	ldi	r22, 0xF4	; 244
+  ee:	71 e0       	ldi	r23, 0x01	; 1
+  f0:	80 e0       	ldi	r24, 0x00	; 0
+  f2:	90 e0       	ldi	r25, 0x00	; 0
+  f4:	ff d0       	rcall	.+510    	; 0x2f4 <HAL_Delay_us>
+  f6:	8c 2f       	mov	r24, r28
+  f8:	73 d1       	rcall	.+742    	; 0x3e0 <SPI_master_write>
+  fa:	64 ef       	ldi	r22, 0xF4	; 244
+  fc:	71 e0       	ldi	r23, 0x01	; 1
+  fe:	80 e0       	ldi	r24, 0x00	; 0
+ 100:	90 e0       	ldi	r25, 0x00	; 0
+ 102:	f8 d0       	rcall	.+496    	; 0x2f4 <HAL_Delay_us>
+ 104:	81 e0       	ldi	r24, 0x01	; 1
+ 106:	90 e0       	ldi	r25, 0x00	; 0
+ 108:	cf 91       	pop	r28
+ 10a:	6b c1       	rjmp	.+726    	; 0x3e2 <setPin_CS>
+
+0000010c <E2213HS091_WriteRegIndex>:
+ 10c:	cf 93       	push	r28
+ 10e:	c8 2f       	mov	r28, r24
+ 110:	80 e0       	ldi	r24, 0x00	; 0
+ 112:	90 e0       	ldi	r25, 0x00	; 0
+ 114:	6c d1       	rcall	.+728    	; 0x3ee <setPin_DC>
+ 116:	80 e0       	ldi	r24, 0x00	; 0
+ 118:	90 e0       	ldi	r25, 0x00	; 0
+ 11a:	63 d1       	rcall	.+710    	; 0x3e2 <setPin_CS>
+ 11c:	64 ef       	ldi	r22, 0xF4	; 244
+ 11e:	71 e0       	ldi	r23, 0x01	; 1
+ 120:	80 e0       	ldi	r24, 0x00	; 0
+ 122:	90 e0       	ldi	r25, 0x00	; 0
+ 124:	e7 d0       	rcall	.+462    	; 0x2f4 <HAL_Delay_us>
+ 126:	8c 2f       	mov	r24, r28
+ 128:	5b d1       	rcall	.+694    	; 0x3e0 <SPI_master_write>
+ 12a:	64 ef       	ldi	r22, 0xF4	; 244
+ 12c:	71 e0       	ldi	r23, 0x01	; 1
+ 12e:	80 e0       	ldi	r24, 0x00	; 0
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	e0 d0       	rcall	.+448    	; 0x2f4 <HAL_Delay_us>
+ 134:	81 e0       	ldi	r24, 0x01	; 1
+ 136:	90 e0       	ldi	r25, 0x00	; 0
+ 138:	54 d1       	rcall	.+680    	; 0x3e2 <setPin_CS>
+ 13a:	81 e0       	ldi	r24, 0x01	; 1
+ 13c:	90 e0       	ldi	r25, 0x00	; 0
+ 13e:	cf 91       	pop	r28
+ 140:	56 c1       	rjmp	.+684    	; 0x3ee <setPin_DC>
+
+00000142 <E2213HS091_WriteMultipleData>:
+ 142:	8f 92       	push	r8
+ 144:	9f 92       	push	r9
+ 146:	af 92       	push	r10
+ 148:	bf 92       	push	r11
+ 14a:	cf 92       	push	r12
+ 14c:	df 92       	push	r13
+ 14e:	ef 92       	push	r14
+ 150:	ff 92       	push	r15
+ 152:	cf 93       	push	r28
+ 154:	df 93       	push	r29
+ 156:	7c 01       	movw	r14, r24
+ 158:	4a 01       	movw	r8, r20
+ 15a:	5b 01       	movw	r10, r22
+ 15c:	80 e0       	ldi	r24, 0x00	; 0
+ 15e:	90 e0       	ldi	r25, 0x00	; 0
+ 160:	40 d1       	rcall	.+640    	; 0x3e2 <setPin_CS>
+ 162:	64 ef       	ldi	r22, 0xF4	; 244
+ 164:	71 e0       	ldi	r23, 0x01	; 1
+ 166:	80 e0       	ldi	r24, 0x00	; 0
+ 168:	90 e0       	ldi	r25, 0x00	; 0
+ 16a:	c4 d0       	rcall	.+392    	; 0x2f4 <HAL_Delay_us>
+ 16c:	e7 01       	movw	r28, r14
+ 16e:	c1 2c       	mov	r12, r1
+ 170:	d1 2c       	mov	r13, r1
+ 172:	76 01       	movw	r14, r12
+ 174:	c8 14       	cp	r12, r8
+ 176:	d9 04       	cpc	r13, r9
+ 178:	ea 04       	cpc	r14, r10
+ 17a:	fb 04       	cpc	r15, r11
+ 17c:	41 f0       	breq	.+16     	; 0x18e <E2213HS091_WriteMultipleData+0x4c>
+ 17e:	89 91       	ld	r24, Y+
+ 180:	2f d1       	rcall	.+606    	; 0x3e0 <SPI_master_write>
+ 182:	8f ef       	ldi	r24, 0xFF	; 255
+ 184:	c8 1a       	sub	r12, r24
+ 186:	d8 0a       	sbc	r13, r24
+ 188:	e8 0a       	sbc	r14, r24
+ 18a:	f8 0a       	sbc	r15, r24
+ 18c:	f3 cf       	rjmp	.-26     	; 0x174 <E2213HS091_WriteMultipleData+0x32>
+ 18e:	64 ef       	ldi	r22, 0xF4	; 244
+ 190:	71 e0       	ldi	r23, 0x01	; 1
+ 192:	80 e0       	ldi	r24, 0x00	; 0
+ 194:	90 e0       	ldi	r25, 0x00	; 0
+ 196:	ae d0       	rcall	.+348    	; 0x2f4 <HAL_Delay_us>
+ 198:	81 e0       	ldi	r24, 0x01	; 1
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	df 91       	pop	r29
+ 19e:	cf 91       	pop	r28
+ 1a0:	ff 90       	pop	r15
+ 1a2:	ef 90       	pop	r14
+ 1a4:	df 90       	pop	r13
+ 1a6:	cf 90       	pop	r12
+ 1a8:	bf 90       	pop	r11
+ 1aa:	af 90       	pop	r10
+ 1ac:	9f 90       	pop	r9
+ 1ae:	8f 90       	pop	r8
+ 1b0:	18 c1       	rjmp	.+560    	; 0x3e2 <setPin_CS>
+
+000001b2 <E2213HS091_Init>:
+ 1b2:	cf 93       	push	r28
+ 1b4:	df 93       	push	r29
+ 1b6:	00 d0       	rcall	.+0      	; 0x1b8 <E2213HS091_Init+0x6>
+ 1b8:	cd b7       	in	r28, 0x3d	; 61
+ 1ba:	de b7       	in	r29, 0x3e	; 62
+ 1bc:	8f ec       	ldi	r24, 0xCF	; 207
+ 1be:	89 83       	std	Y+1, r24	; 0x01
+ 1c0:	8d e8       	ldi	r24, 0x8D	; 141
+ 1c2:	8a 83       	std	Y+2, r24	; 0x02
+ 1c4:	65 e0       	ldi	r22, 0x05	; 5
+ 1c6:	70 e0       	ldi	r23, 0x00	; 0
+ 1c8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ca:	90 e0       	ldi	r25, 0x00	; 0
+ 1cc:	a2 d0       	rcall	.+324    	; 0x312 <HAL_Delay>
+ 1ce:	81 e0       	ldi	r24, 0x01	; 1
+ 1d0:	90 e0       	ldi	r25, 0x00	; 0
+ 1d2:	13 d1       	rcall	.+550    	; 0x3fa <setPin_RST>
+ 1d4:	65 e0       	ldi	r22, 0x05	; 5
+ 1d6:	70 e0       	ldi	r23, 0x00	; 0
+ 1d8:	80 e0       	ldi	r24, 0x00	; 0
+ 1da:	90 e0       	ldi	r25, 0x00	; 0
+ 1dc:	9a d0       	rcall	.+308    	; 0x312 <HAL_Delay>
+ 1de:	80 e0       	ldi	r24, 0x00	; 0
+ 1e0:	90 e0       	ldi	r25, 0x00	; 0
+ 1e2:	0b d1       	rcall	.+534    	; 0x3fa <setPin_RST>
+ 1e4:	6a e0       	ldi	r22, 0x0A	; 10
+ 1e6:	70 e0       	ldi	r23, 0x00	; 0
+ 1e8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ea:	90 e0       	ldi	r25, 0x00	; 0
+ 1ec:	92 d0       	rcall	.+292    	; 0x312 <HAL_Delay>
+ 1ee:	81 e0       	ldi	r24, 0x01	; 1
+ 1f0:	90 e0       	ldi	r25, 0x00	; 0
+ 1f2:	03 d1       	rcall	.+518    	; 0x3fa <setPin_RST>
+ 1f4:	65 e0       	ldi	r22, 0x05	; 5
+ 1f6:	70 e0       	ldi	r23, 0x00	; 0
+ 1f8:	80 e0       	ldi	r24, 0x00	; 0
+ 1fa:	90 e0       	ldi	r25, 0x00	; 0
+ 1fc:	8a d0       	rcall	.+276    	; 0x312 <HAL_Delay>
+ 1fe:	81 e0       	ldi	r24, 0x01	; 1
+ 200:	90 e0       	ldi	r25, 0x00	; 0
+ 202:	ef d0       	rcall	.+478    	; 0x3e2 <setPin_CS>
+ 204:	61 e0       	ldi	r22, 0x01	; 1
+ 206:	70 e0       	ldi	r23, 0x00	; 0
+ 208:	80 e0       	ldi	r24, 0x00	; 0
+ 20a:	90 e0       	ldi	r25, 0x00	; 0
+ 20c:	82 d0       	rcall	.+260    	; 0x312 <HAL_Delay>
+ 20e:	80 e0       	ldi	r24, 0x00	; 0
+ 210:	7d df       	rcall	.-262    	; 0x10c <E2213HS091_WriteRegIndex>
+ 212:	8e e0       	ldi	r24, 0x0E	; 14
+ 214:	63 df       	rcall	.-314    	; 0xdc <E2213HS091_WriteData8>
+ 216:	58 df       	rcall	.-336    	; 0xc8 <E2213HS091_WaiteUntilNotBusy>
+ 218:	85 ee       	ldi	r24, 0xE5	; 229
+ 21a:	78 df       	rcall	.-272    	; 0x10c <E2213HS091_WriteRegIndex>
+ 21c:	89 e1       	ldi	r24, 0x19	; 25
+ 21e:	5e df       	rcall	.-324    	; 0xdc <E2213HS091_WriteData8>
+ 220:	80 ee       	ldi	r24, 0xE0	; 224
+ 222:	74 df       	rcall	.-280    	; 0x10c <E2213HS091_WriteRegIndex>
+ 224:	82 e0       	ldi	r24, 0x02	; 2
+ 226:	5a df       	rcall	.-332    	; 0xdc <E2213HS091_WriteData8>
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	70 df       	rcall	.-288    	; 0x10c <E2213HS091_WriteRegIndex>
+ 22c:	42 e0       	ldi	r20, 0x02	; 2
+ 22e:	50 e0       	ldi	r21, 0x00	; 0
+ 230:	60 e0       	ldi	r22, 0x00	; 0
+ 232:	70 e0       	ldi	r23, 0x00	; 0
+ 234:	ce 01       	movw	r24, r28
+ 236:	01 96       	adiw	r24, 0x01	; 1
+ 238:	84 df       	rcall	.-248    	; 0x142 <E2213HS091_WriteMultipleData>
+ 23a:	0f 90       	pop	r0
+ 23c:	0f 90       	pop	r0
+ 23e:	df 91       	pop	r29
+ 240:	cf 91       	pop	r28
+ 242:	08 95       	ret
+
+00000244 <E2213HS091_SendImageData>:
+ 244:	cf 93       	push	r28
+ 246:	df 93       	push	r29
+ 248:	80 e1       	ldi	r24, 0x10	; 16
+ 24a:	60 df       	rcall	.-320    	; 0x10c <E2213HS091_WriteRegIndex>
+ 24c:	44 ec       	ldi	r20, 0xC4	; 196
+ 24e:	5a e0       	ldi	r21, 0x0A	; 10
+ 250:	60 e0       	ldi	r22, 0x00	; 0
+ 252:	70 e0       	ldi	r23, 0x00	; 0
+ 254:	80 e0       	ldi	r24, 0x00	; 0
+ 256:	91 e0       	ldi	r25, 0x01	; 1
+ 258:	74 df       	rcall	.-280    	; 0x142 <E2213HS091_WriteMultipleData>
+ 25a:	83 e1       	ldi	r24, 0x13	; 19
+ 25c:	57 df       	rcall	.-338    	; 0x10c <E2213HS091_WriteRegIndex>
+ 25e:	80 e0       	ldi	r24, 0x00	; 0
+ 260:	90 e0       	ldi	r25, 0x00	; 0
+ 262:	bf d0       	rcall	.+382    	; 0x3e2 <setPin_CS>
+ 264:	64 ef       	ldi	r22, 0xF4	; 244
+ 266:	71 e0       	ldi	r23, 0x01	; 1
+ 268:	80 e0       	ldi	r24, 0x00	; 0
+ 26a:	90 e0       	ldi	r25, 0x00	; 0
+ 26c:	43 d0       	rcall	.+134    	; 0x2f4 <HAL_Delay_us>
+ 26e:	c0 e0       	ldi	r28, 0x00	; 0
+ 270:	d0 e0       	ldi	r29, 0x00	; 0
+ 272:	80 e0       	ldi	r24, 0x00	; 0
+ 274:	b5 d0       	rcall	.+362    	; 0x3e0 <SPI_master_write>
+ 276:	21 96       	adiw	r28, 0x01	; 1
+ 278:	c4 3c       	cpi	r28, 0xC4	; 196
+ 27a:	8a e0       	ldi	r24, 0x0A	; 10
+ 27c:	d8 07       	cpc	r29, r24
+ 27e:	c9 f7       	brne	.-14     	; 0x272 <E2213HS091_SendImageData+0x2e>
+ 280:	64 ef       	ldi	r22, 0xF4	; 244
+ 282:	71 e0       	ldi	r23, 0x01	; 1
+ 284:	80 e0       	ldi	r24, 0x00	; 0
+ 286:	90 e0       	ldi	r25, 0x00	; 0
+ 288:	35 d0       	rcall	.+106    	; 0x2f4 <HAL_Delay_us>
+ 28a:	81 e0       	ldi	r24, 0x01	; 1
+ 28c:	90 e0       	ldi	r25, 0x00	; 0
+ 28e:	df 91       	pop	r29
+ 290:	cf 91       	pop	r28
+ 292:	a7 c0       	rjmp	.+334    	; 0x3e2 <setPin_CS>
+
+00000294 <E2213HS091_SendUpdateCmd>:
+ 294:	19 df       	rcall	.-462    	; 0xc8 <E2213HS091_WaiteUntilNotBusy>
+ 296:	84 e0       	ldi	r24, 0x04	; 4
+ 298:	39 df       	rcall	.-398    	; 0x10c <E2213HS091_WriteRegIndex>
+ 29a:	80 e0       	ldi	r24, 0x00	; 0
+ 29c:	1f df       	rcall	.-450    	; 0xdc <E2213HS091_WriteData8>
+ 29e:	14 df       	rcall	.-472    	; 0xc8 <E2213HS091_WaiteUntilNotBusy>
+ 2a0:	82 e1       	ldi	r24, 0x12	; 18
+ 2a2:	34 df       	rcall	.-408    	; 0x10c <E2213HS091_WriteRegIndex>
+ 2a4:	80 e0       	ldi	r24, 0x00	; 0
+ 2a6:	1a df       	rcall	.-460    	; 0xdc <E2213HS091_WriteData8>
+ 2a8:	0f cf       	rjmp	.-482    	; 0xc8 <E2213HS091_WaiteUntilNotBusy>
+
+000002aa <E2213HS091_ClearFullScreen>:
+ 2aa:	81 30       	cpi	r24, 0x01	; 1
+ 2ac:	29 f0       	breq	.+10     	; 0x2b8 <E2213HS091_ClearFullScreen+0xe>
+ 2ae:	82 30       	cpi	r24, 0x02	; 2
+ 2b0:	31 f4       	brne	.+12     	; 0x2be <E2213HS091_ClearFullScreen+0x14>
+ 2b2:	55 e5       	ldi	r21, 0x55	; 85
+ 2b4:	4a ea       	ldi	r20, 0xAA	; 170
+ 2b6:	05 c0       	rjmp	.+10     	; 0x2c2 <E2213HS091_ClearFullScreen+0x18>
+ 2b8:	5f ef       	ldi	r21, 0xFF	; 255
+ 2ba:	4f ef       	ldi	r20, 0xFF	; 255
+ 2bc:	02 c0       	rjmp	.+4      	; 0x2c2 <E2213HS091_ClearFullScreen+0x18>
+ 2be:	50 e0       	ldi	r21, 0x00	; 0
+ 2c0:	40 e0       	ldi	r20, 0x00	; 0
+ 2c2:	20 e0       	ldi	r18, 0x00	; 0
+ 2c4:	31 e0       	ldi	r19, 0x01	; 1
+ 2c6:	80 e0       	ldi	r24, 0x00	; 0
+ 2c8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ca:	80 fd       	sbrc	r24, 0
+ 2cc:	02 c0       	rjmp	.+4      	; 0x2d2 <E2213HS091_ClearFullScreen+0x28>
+ 2ce:	a5 2f       	mov	r26, r21
+ 2d0:	01 c0       	rjmp	.+2      	; 0x2d4 <E2213HS091_ClearFullScreen+0x2a>
+ 2d2:	a4 2f       	mov	r26, r20
+ 2d4:	f9 01       	movw	r30, r18
+ 2d6:	60 e0       	ldi	r22, 0x00	; 0
+ 2d8:	70 e0       	ldi	r23, 0x00	; 0
+ 2da:	a1 93       	st	Z+, r26
+ 2dc:	6f 5f       	subi	r22, 0xFF	; 255
+ 2de:	7f 4f       	sbci	r23, 0xFF	; 255
+ 2e0:	6d 30       	cpi	r22, 0x0D	; 13
+ 2e2:	71 05       	cpc	r23, r1
+ 2e4:	d1 f7       	brne	.-12     	; 0x2da <E2213HS091_ClearFullScreen+0x30>
+ 2e6:	01 96       	adiw	r24, 0x01	; 1
+ 2e8:	23 5f       	subi	r18, 0xF3	; 243
+ 2ea:	3f 4f       	sbci	r19, 0xFF	; 255
+ 2ec:	84 3d       	cpi	r24, 0xD4	; 212
+ 2ee:	91 05       	cpc	r25, r1
+ 2f0:	61 f7       	brne	.-40     	; 0x2ca <E2213HS091_ClearFullScreen+0x20>
+ 2f2:	08 95       	ret
+
+000002f4 <HAL_Delay_us>:
+ 2f4:	61 15       	cp	r22, r1
+ 2f6:	71 05       	cpc	r23, r1
+ 2f8:	81 05       	cpc	r24, r1
+ 2fa:	91 05       	cpc	r25, r1
+ 2fc:	49 f0       	breq	.+18     	; 0x310 <HAL_Delay_us+0x1c>
+ 2fe:	22 e0       	ldi	r18, 0x02	; 2
+ 300:	2a 95       	dec	r18
+ 302:	f1 f7       	brne	.-4      	; 0x300 <HAL_Delay_us+0xc>
+ 304:	00 c0       	rjmp	.+0      	; 0x306 <HAL_Delay_us+0x12>
+ 306:	61 50       	subi	r22, 0x01	; 1
+ 308:	71 09       	sbc	r23, r1
+ 30a:	81 09       	sbc	r24, r1
+ 30c:	91 09       	sbc	r25, r1
+ 30e:	f2 cf       	rjmp	.-28     	; 0x2f4 <HAL_Delay_us>
+ 310:	08 95       	ret
+
+00000312 <HAL_Delay>:
+ 312:	61 15       	cp	r22, r1
+ 314:	71 05       	cpc	r23, r1
+ 316:	81 05       	cpc	r24, r1
+ 318:	91 05       	cpc	r25, r1
+ 31a:	59 f0       	breq	.+22     	; 0x332 <HAL_Delay+0x20>
+ 31c:	ef ec       	ldi	r30, 0xCF	; 207
+ 31e:	f7 e0       	ldi	r31, 0x07	; 7
+ 320:	31 97       	sbiw	r30, 0x01	; 1
+ 322:	f1 f7       	brne	.-4      	; 0x320 <HAL_Delay+0xe>
+ 324:	00 c0       	rjmp	.+0      	; 0x326 <HAL_Delay+0x14>
+ 326:	00 00       	nop
+ 328:	61 50       	subi	r22, 0x01	; 1
+ 32a:	71 09       	sbc	r23, r1
+ 32c:	81 09       	sbc	r24, r1
+ 32e:	91 09       	sbc	r25, r1
+ 330:	f0 cf       	rjmp	.-32     	; 0x312 <HAL_Delay>
+ 332:	08 95       	ret
+
+00000334 <init_spi_master>:
+ 334:	8b e0       	ldi	r24, 0x0B	; 11
+ 336:	87 bb       	out	0x17, r24	; 23
+ 338:	c1 98       	cbi	0x18, 1	; 24
+ 33a:	c3 98       	cbi	0x18, 3	; 24
+ 33c:	08 95       	ret
+
+0000033e <init_GPIO>:
+ 33e:	80 ed       	ldi	r24, 0xD0	; 208
+ 340:	82 b9       	out	0x02, r24	; 2
+ 342:	1c 98       	cbi	0x03, 4	; 3
+ 344:	1f 9a       	sbi	0x03, 7	; 3
+ 346:	1e 9a       	sbi	0x03, 6	; 3
+ 348:	c0 9a       	sbi	0x18, 0	; 24
+ 34a:	08 95       	ret
+
+0000034c <spiTransferByte_c>:
+ 34c:	c1 98       	cbi	0x18, 1	; 24
+ 34e:	00 00       	nop
+ 350:	87 ff       	sbrs	r24, 7
+ 352:	02 c0       	rjmp	.+4      	; 0x358 <spiTransferByte_c+0xc>
+ 354:	c3 9a       	sbi	0x18, 3	; 24
+ 356:	01 c0       	rjmp	.+2      	; 0x35a <spiTransferByte_c+0xe>
+ 358:	c3 98       	cbi	0x18, 3	; 24
+ 35a:	c1 9a       	sbi	0x18, 1	; 24
+ 35c:	00 00       	nop
+ 35e:	c1 98       	cbi	0x18, 1	; 24
+ 360:	00 00       	nop
+ 362:	86 ff       	sbrs	r24, 6
+ 364:	02 c0       	rjmp	.+4      	; 0x36a <spiTransferByte_c+0x1e>
+ 366:	c3 9a       	sbi	0x18, 3	; 24
+ 368:	01 c0       	rjmp	.+2      	; 0x36c <spiTransferByte_c+0x20>
+ 36a:	c3 98       	cbi	0x18, 3	; 24
+ 36c:	c1 9a       	sbi	0x18, 1	; 24
+ 36e:	00 00       	nop
+ 370:	c1 98       	cbi	0x18, 1	; 24
+ 372:	00 00       	nop
+ 374:	85 ff       	sbrs	r24, 5
+ 376:	02 c0       	rjmp	.+4      	; 0x37c <spiTransferByte_c+0x30>
+ 378:	c3 9a       	sbi	0x18, 3	; 24
+ 37a:	01 c0       	rjmp	.+2      	; 0x37e <spiTransferByte_c+0x32>
+ 37c:	c3 98       	cbi	0x18, 3	; 24
+ 37e:	c1 9a       	sbi	0x18, 1	; 24
+ 380:	00 00       	nop
+ 382:	c1 98       	cbi	0x18, 1	; 24
+ 384:	00 00       	nop
+ 386:	84 ff       	sbrs	r24, 4
+ 388:	02 c0       	rjmp	.+4      	; 0x38e <spiTransferByte_c+0x42>
+ 38a:	c3 9a       	sbi	0x18, 3	; 24
+ 38c:	01 c0       	rjmp	.+2      	; 0x390 <spiTransferByte_c+0x44>
+ 38e:	c3 98       	cbi	0x18, 3	; 24
+ 390:	c1 9a       	sbi	0x18, 1	; 24
+ 392:	00 00       	nop
+ 394:	c1 98       	cbi	0x18, 1	; 24
+ 396:	00 00       	nop
+ 398:	83 ff       	sbrs	r24, 3
+ 39a:	02 c0       	rjmp	.+4      	; 0x3a0 <spiTransferByte_c+0x54>
+ 39c:	c3 9a       	sbi	0x18, 3	; 24
+ 39e:	01 c0       	rjmp	.+2      	; 0x3a2 <spiTransferByte_c+0x56>
+ 3a0:	c3 98       	cbi	0x18, 3	; 24
+ 3a2:	c1 9a       	sbi	0x18, 1	; 24
+ 3a4:	00 00       	nop
+ 3a6:	c1 98       	cbi	0x18, 1	; 24
+ 3a8:	00 00       	nop
+ 3aa:	82 ff       	sbrs	r24, 2
+ 3ac:	02 c0       	rjmp	.+4      	; 0x3b2 <spiTransferByte_c+0x66>
+ 3ae:	c3 9a       	sbi	0x18, 3	; 24
+ 3b0:	01 c0       	rjmp	.+2      	; 0x3b4 <spiTransferByte_c+0x68>
+ 3b2:	c3 98       	cbi	0x18, 3	; 24
+ 3b4:	c1 9a       	sbi	0x18, 1	; 24
+ 3b6:	00 00       	nop
+ 3b8:	c1 98       	cbi	0x18, 1	; 24
+ 3ba:	00 00       	nop
+ 3bc:	81 ff       	sbrs	r24, 1
+ 3be:	02 c0       	rjmp	.+4      	; 0x3c4 <spiTransferByte_c+0x78>
+ 3c0:	c3 9a       	sbi	0x18, 3	; 24
+ 3c2:	01 c0       	rjmp	.+2      	; 0x3c6 <spiTransferByte_c+0x7a>
+ 3c4:	c3 98       	cbi	0x18, 3	; 24
+ 3c6:	c1 9a       	sbi	0x18, 1	; 24
+ 3c8:	00 00       	nop
+ 3ca:	c1 98       	cbi	0x18, 1	; 24
+ 3cc:	00 00       	nop
+ 3ce:	80 ff       	sbrs	r24, 0
+ 3d0:	02 c0       	rjmp	.+4      	; 0x3d6 <spiTransferByte_c+0x8a>
+ 3d2:	c3 9a       	sbi	0x18, 3	; 24
+ 3d4:	01 c0       	rjmp	.+2      	; 0x3d8 <spiTransferByte_c+0x8c>
+ 3d6:	c3 98       	cbi	0x18, 3	; 24
+ 3d8:	c1 9a       	sbi	0x18, 1	; 24
+ 3da:	00 00       	nop
+ 3dc:	c1 98       	cbi	0x18, 1	; 24
+ 3de:	08 95       	ret
+
+000003e0 <SPI_master_write>:
+ 3e0:	b5 cf       	rjmp	.-150    	; 0x34c <spiTransferByte_c>
+
+000003e2 <setPin_CS>:
+ 3e2:	89 2b       	or	r24, r25
+ 3e4:	11 f0       	breq	.+4      	; 0x3ea <setPin_CS+0x8>
+ 3e6:	c0 9a       	sbi	0x18, 0	; 24
+ 3e8:	08 95       	ret
+ 3ea:	c0 98       	cbi	0x18, 0	; 24
+ 3ec:	08 95       	ret
+
+000003ee <setPin_DC>:
+ 3ee:	89 2b       	or	r24, r25
+ 3f0:	11 f0       	breq	.+4      	; 0x3f6 <setPin_DC+0x8>
+ 3f2:	1f 9a       	sbi	0x03, 7	; 3
+ 3f4:	08 95       	ret
+ 3f6:	1f 98       	cbi	0x03, 7	; 3
+ 3f8:	08 95       	ret
+
+000003fa <setPin_RST>:
+ 3fa:	89 2b       	or	r24, r25
+ 3fc:	11 f0       	breq	.+4      	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 3fe:	1e 9a       	sbi	0x03, 6	; 3
+ 400:	08 95       	ret
+ 402:	1e 98       	cbi	0x03, 6	; 3
+ 404:	08 95       	ret
+
+00000406 <readPin_BUSY>:
+ 406:	81 b1       	in	r24, 0x01	; 1
+ 408:	85 fb       	bst	r24, 5
+ 40a:	88 27       	eor	r24, r24
+ 40c:	80 f9       	bld	r24, 0
+ 40e:	90 e0       	ldi	r25, 0x00	; 0
+ 410:	08 95       	ret
+
+00000412 <main>:
+ 412:	90 df       	rcall	.-224    	; 0x334 <init_spi_master>
+ 414:	94 df       	rcall	.-216    	; 0x33e <init_GPIO>
+ 416:	cd de       	rcall	.-614    	; 0x1b2 <E2213HS091_Init>
+ 418:	8f ef       	ldi	r24, 0xFF	; 255
+ 41a:	8a bb       	out	0x1a, r24	; 26
+ 41c:	cf ef       	ldi	r28, 0xFF	; 255
+ 41e:	cb bb       	out	0x1b, r28	; 27
+ 420:	81 e0       	ldi	r24, 0x01	; 1
+ 422:	43 df       	rcall	.-378    	; 0x2aa <E2213HS091_ClearFullScreen>
+ 424:	0f df       	rcall	.-482    	; 0x244 <E2213HS091_SendImageData>
+ 426:	36 df       	rcall	.-404    	; 0x294 <E2213HS091_SendUpdateCmd>
+ 428:	68 eb       	ldi	r22, 0xB8	; 184
+ 42a:	7b e0       	ldi	r23, 0x0B	; 11
+ 42c:	80 e0       	ldi	r24, 0x00	; 0
+ 42e:	90 e0       	ldi	r25, 0x00	; 0
+ 430:	70 df       	rcall	.-288    	; 0x312 <HAL_Delay>
+ 432:	1b ba       	out	0x1b, r1	; 27
+ 434:	80 e0       	ldi	r24, 0x00	; 0
+ 436:	39 df       	rcall	.-398    	; 0x2aa <E2213HS091_ClearFullScreen>
+ 438:	05 df       	rcall	.-502    	; 0x244 <E2213HS091_SendImageData>
+ 43a:	2c df       	rcall	.-424    	; 0x294 <E2213HS091_SendUpdateCmd>
+ 43c:	68 eb       	ldi	r22, 0xB8	; 184
+ 43e:	7b e0       	ldi	r23, 0x0B	; 11
+ 440:	80 e0       	ldi	r24, 0x00	; 0
+ 442:	90 e0       	ldi	r25, 0x00	; 0
+ 444:	66 df       	rcall	.-308    	; 0x312 <HAL_Delay>
+ 446:	eb cf       	rjmp	.-42     	; 0x41e <main+0xc>
+
+00000448 <_exit>:
+ 448:	f8 94       	cli
+
+0000044a <__stop_program>:
+ 44a:	ff cf       	rjmp	.-2      	; 0x44a <__stop_program>
