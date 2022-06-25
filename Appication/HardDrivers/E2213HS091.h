@@ -110,6 +110,9 @@ void E2213HS091_SendImageData(void);
 void E2213HS091_ClearFullScreen(enum ENUM_COLOR color);
 void E2213HS091_SendUpdateCmd(void);
 void E2213HS091_TurnOffDCDC(void);
+
+void E2213HS091_ReverseFrame(void);
+void E2213HS091_SetHYBELogoFrame(void);
 void E2213HS091_DrawPoint(uint8_t xPos, uint8_t yPos, enum ENUM_COLOR color);
 void E2213HS091_DrawLine(uint8_t xStart, uint8_t yStart, uint8_t length,
 enum ENUM_ORIENTATION orientation, enum ENUM_COLOR color);

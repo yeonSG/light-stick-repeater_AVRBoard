@@ -606,6 +606,12 @@ void E2213HS091_Init(void)
     // E2213HS091_WriteData8(PANEL_SET_DATA_2);   
 }
 
+void E2213HS091_ReverseFrame(void) {
+    for(int i=0; i<2756; i++) {
+        E2213HS091_FirstFrameBuffer[i] = ~E2213HS091_FirstFrameBuffer[i];
+    }
+}
+
 void E2213HS091_SetHYBELogoFrame(void) {
     for(int i=0; i<2756; i++) {
         E2213HS091_FirstFrameBuffer[i] = pgm_read_byte(&HYBELogo[i]);

@@ -162,7 +162,7 @@ void showLogo() {
 	E2213HS091_SetHYBELogoFrame();
 	E2213HS091_SendImageData();
     E2213HS091_SendUpdateCmd();
-    E2213HS091_TurnOffDCDC();
+    // E2213HS091_TurnOffDCDC();
 	return;
 }
 
@@ -210,6 +210,11 @@ int main(void)
 		showLogo();
 		HAL_Delay(3000);
 		example_text();
+		HAL_Delay(3000);
+		E2213HS091_ReverseFrame();
+    	E2213HS091_SendImageData();
+    	E2213HS091_SendUpdateCmd();
+    	E2213HS091_TurnOffDCDC();
 		HAL_Delay(3000);
 	}
 	
