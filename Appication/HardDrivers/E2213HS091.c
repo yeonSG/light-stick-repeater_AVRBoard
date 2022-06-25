@@ -294,6 +294,17 @@ void E2213HS091_DrawPoint(uint8_t xPos, uint8_t yPos, enum ENUM_COLOR color)
 {
     uint16_t i;
     uint8_t n;
+    uint8_t temp;
+    if (1) {
+        /* Rotate 180' */
+        // xPos = E2213HS091_XPOS_MAX - xPos;
+        // yPos = E2213HS091_YPOS_MAX - yPos;
+        /* Rotate 270' */
+        temp = xPos;
+        xPos = yPos;
+        yPos = E2213HS091_YPOS_MAX - temp;
+    }
+
     /* 判断坐标是否合法 */
     if ((xPos > E2213HS091_XPOS_MAX) || (yPos > E2213HS091_YPOS_MAX))
     {
@@ -331,18 +342,18 @@ void E2213HS091_DrawLine(uint8_t xStart, uint8_t yStart, uint8_t length,
     enum ENUM_ORIENTATION orientation, enum ENUM_COLOR color)
 {
     /* 判断坐标是否合法 */
-    if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX))
-    {
-        return;
-    }
-    else if ((orientation == HORIZONTAL) && (xStart + length - 1 > E2213HS091_XPOS_MAX))
-    {
-        return;
-    }
-    else if ((orientation == VERTICAL) && (yStart + length - 1 > E2213HS091_YPOS_MAX))
-    {
-        return;
-    }
+    // if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX))
+    // {
+    //     return;
+    // }
+    // else if ((orientation == HORIZONTAL) && (xStart + length - 1 > E2213HS091_XPOS_MAX))
+    // {
+    //     return;
+    // }
+    // else if ((orientation == VERTICAL) && (yStart + length - 1 > E2213HS091_YPOS_MAX))
+    // {
+    //     return;
+    // }
     /* 画线 */
     for (uint8_t i = 0; i < length; i++)
     {
@@ -374,11 +385,11 @@ void E2213HS091_DrawRectangle(uint8_t xStart, uint8_t yStart, uint8_t width,
     uint8_t height, enum ENUM_FILL fill, enum ENUM_COLOR borderColor, enum ENUM_COLOR fillColor)
 {
     /* 判断坐标是否合法 */
-    if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX)  ||
-        (xStart + width - 1 > E2213HS091_XPOS_MAX) || (yStart + height - 1 > E2213HS091_YPOS_MAX))
-    {
-        return;
-    }    
+    // if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX)  ||
+    //     (xStart + width - 1 > E2213HS091_XPOS_MAX) || (yStart + height - 1 > E2213HS091_YPOS_MAX))
+    // {
+    //     return;
+    // }    
     /* 画外框 */
     E2213HS091_DrawLine(xStart, yStart, width, HORIZONTAL,borderColor);    
     E2213HS091_DrawLine(xStart, yStart + height - 1, width, HORIZONTAL,borderColor);
@@ -494,11 +505,11 @@ void E2213HS091_DrawBmp(uint8_t xStart, uint8_t yStart, uint8_t bmpWidth,
         const unsigned char* pic)
 {
     /* 判断坐标是否合法 */
-    if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX)  ||
-        (xStart + bmpWidth - 1 > E2213HS091_XPOS_MAX) || (yStart + bmpHeight - 1 > E2213HS091_YPOS_MAX))
-    {
-        return;
-    }    
+    // if ((xStart > E2213HS091_XPOS_MAX) || (yStart > E2213HS091_YPOS_MAX)  ||
+    //     (xStart + bmpWidth - 1 > E2213HS091_XPOS_MAX) || (yStart + bmpHeight - 1 > E2213HS091_YPOS_MAX))
+    // {
+    //     return;
+    // }    
     uint8_t xPos, yPos, temp;
     xPos = xStart;
     yPos = yStart; 
