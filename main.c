@@ -169,6 +169,16 @@ int main(void)
     init_spi_master();
     init_GPIO();	
 	E2213HS091_Init();
+
+	while(1) {
+		SET_CLK;
+		SET_DAT;
+		HAL_Delay(3000);
+		CLR_CLK;
+		CLR_DAT;
+		HAL_Delay(3000);
+
+	}
 	
 	DDRA = 0xFF;
     while (1) 
