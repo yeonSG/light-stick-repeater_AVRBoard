@@ -510,6 +510,7 @@ void E2213HS091_DrawBmp(uint8_t xStart, uint8_t yStart, uint8_t bmpWidth,
         for (uint8_t i = 0; i < (bmpWidth / 8); i++)
         {
             temp = *pic; 
+            // temp = pgm_read_byte(&ACSII_1608[(uint8_t)chr][t]);
             for(uint8_t j = 0; j < 8; j++)
             {
                 if (temp & 0x80)

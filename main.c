@@ -31,7 +31,8 @@ void HAL_Delay(uint32_t Delay) {
     // SPI_DDR |= (1 << SS);	
 	// SPI_DDR |= (1 << MOSI);
 	// SPI_DDR |= (1 << SCK);
-	SPI_DDR = 0x0B;
+	// SPI_DDR = 0x0B;
+	SPI_DDR = 0x83;
 	CLR_CLK;
 	CLR_DAT;
  }
@@ -41,7 +42,8 @@ void HAL_Delay(uint32_t Delay) {
 	// LCD_DDR |= (1 << LCD_DC);     // output
 	// LCD_DDR |= (1 << LCD_RST); 
 	// LCD_DDR |= (1 << LCD_BS);
-	LCD_DDR = 0xD0;		// 1101_0000
+	// LCD_DDR = 0xD1;		// 1101_0001
+	LCD_DDR = 0xD0;		// 1101_0001
 
     LCD_BS_Port &= ~LCD_BS; // BS pin Clear.
 
@@ -131,27 +133,28 @@ void example() {
     // HAL_Delay(50);
     // E2213HS091_Init();		// ok
     /* 显示图片测试 */
-    // // // E2213HS091_DrawImage(0,0,104,212,gImage_1);
-    // E2213HS091_SendImageData();
-    // E2213HS091_SendUpdateCmd();
-    // E2213HS091_TurnOffDCDC();
-    // HAL_Delay(3000);
+    // E2213HS091_DrawImage(0,0,104,212,gImage_1);
+    E2213HS091_ClearFullScreen(BLACK);
+    E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
+    HAL_Delay(3000);
     /* 显示点�?�线、矩形�?�字符�?�bpm图片测试 */
-    // E2213HS091_ClearFullScreen(WHITE);
-    // E2213HS091_DrawPoint(0,0,BLACK);
-    // E2213HS091_DrawLine(0,2,10,HORIZONTAL,BLACK);
-    // E2213HS091_DrawLine(0,4,10,VERTICAL,BLACK);    
-    // E2213HS091_DrawRectangle(0,16,10,10,SOLID,BLACK,WHITE);   
-    // E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
-    // E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
-    // E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
-    // E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
-    // E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
-    // E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
-    // E2213HS091_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
-    // E2213HS091_SendImageData();
-    // E2213HS091_SendUpdateCmd();
-    // E2213HS091_TurnOffDCDC();
+    E2213HS091_ClearFullScreen(WHITE);
+    E2213HS091_DrawPoint(0,0,BLACK);
+    E2213HS091_DrawLine(0,2,10,HORIZONTAL,BLACK);
+    E2213HS091_DrawLine(0,4,10,VERTICAL,BLACK);    
+    E2213HS091_DrawRectangle(0,16,10,10,SOLID,BLACK,WHITE);   
+    E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
+    E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
+    E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);
+    E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
+    E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
+    E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
+    E2213HS091_ShowCharStr(40,148,"szongen",FONT_1608,BLACK,WHITE);
+    E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
 }
 
 int main(void)
@@ -170,14 +173,19 @@ int main(void)
     init_GPIO();	
 	E2213HS091_Init();
 
-	while(1) {
-		SET_CLK;
-		SET_DAT;
-		HAL_Delay(3000);
-		CLR_CLK;
-		CLR_DAT;
-		HAL_Delay(3000);
+	// while(1) {
+	// 	SET_CLK;
+	// 	SET_DAT;
+	// 	HAL_Delay(3000);
+	// 	CLR_CLK;
+	// 	CLR_DAT;
+	// 	HAL_Delay(3000);
+	// }
 
+	example();
+	while (1)
+	{
+		;
 	}
 	
 	DDRA = 0xFF;

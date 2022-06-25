@@ -25,7 +25,8 @@
 #define SPI_PIN PINB        // Pin Address, 핀 주소, 값 읽어올때 사용
 #define SS 0x01            // SlaveSelect(Chip Select)
 #define SCK 0x02           // Clock
-#define MOSI 0x08          // MasterOut 
+#define MOSI 0x80          // MasterOut 
+
 // #define MISO 0x08          // MasterInput * NOTUSE
 
 // 추가 핀
