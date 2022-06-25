@@ -131,7 +131,6 @@ int readPin_BUSY() {
 
 void example() {
     // HAL_Delay(50);
-    // E2213HS091_Init();		// ok
     /* 显示图片测试 */
     // E2213HS091_DrawImage(0,0,104,212,gImage_1);
     E2213HS091_ClearFullScreen(BLACK);
@@ -149,7 +148,7 @@ void example() {
     E2213HS091_DrawRectangle(20,16,10,10,HOLLOW,BLACK,WHITE);          
     E2213HS091_ShowCharStr(0,30,"FONT TEST",FONT_1608,BLACK,WHITE);
     E2213HS091_ShowCharStr(0,30,"ABCDEFGHIJKLMNOPQRSTUVWXYZ",FONT_1608,BLACK,WHITE);
-    E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);		// width=104, heigh=41
+    // E2213HS091_DrawBmp(0,50,104,41,BLACK,WHITE,BmpImage);		// width=104, heigh=41
     E2213HS091_ShowCharStr(0,100,"UID:5572380",FONT_1608,BLACK,WHITE);  
     E2213HS091_ShowCharStr(20,116,"Designed",FONT_1608,BLACK,WHITE);
     E2213HS091_ShowCharStr(44,132,"By",FONT_1608,BLACK,WHITE);
@@ -158,6 +157,29 @@ void example() {
     E2213HS091_SendUpdateCmd();
     E2213HS091_TurnOffDCDC();
 }
+
+void showLogo() {
+	E2213HS091_SetHYBELogoFrame();
+	E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
+	return;
+}
+
+void example_text() {
+    E2213HS091_ClearFullScreen(BLACK);
+    E2213HS091_DrawLine(0,1,212,HORIZONTAL,WHITE);
+	E2213HS091_DrawLine(0,3,212,HORIZONTAL,WHITE);	
+    E2213HS091_ShowCharStr(0,10,"ABCDEFGHIJKLMNOPQRSTUVWXYZ",FONT_1608,WHITE,BLACK);
+    E2213HS091_ShowCharStr(0,30,"01234567890",FONT_1608,WHITE,BLACK);
+    E2213HS091_ShowCharStr(0,50,"!@#$^&*()~:;",FONT_1608,WHITE,BLACK);
+    E2213HS091_DrawLine(0,99,212,HORIZONTAL,WHITE);
+	E2213HS091_DrawLine(0,101,212,HORIZONTAL,WHITE);
+    E2213HS091_SendImageData();
+    E2213HS091_SendUpdateCmd();
+    E2213HS091_TurnOffDCDC();
+}
+
 
 int main(void)
 {
@@ -183,11 +205,12 @@ int main(void)
 	// 	CLR_DAT;
 	// 	HAL_Delay(3000);
 	// }
-
-	example();
 	while (1)
 	{
-		;
+		showLogo();
+		HAL_Delay(3000);
+		example_text();
+		HAL_Delay(3000);
 	}
 	
 	DDRA = 0xFF;
