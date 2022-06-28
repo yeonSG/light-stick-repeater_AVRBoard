@@ -9,6 +9,8 @@
 #include "util/delay.h"
 #include "Appication/HardDrivers/E2213HS091.h"
 #include "Appication/HardDrivers/image.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 void HAL_Delay_us(uint32_t _us) {
 	while (0 < _us)
@@ -180,31 +182,77 @@ void example_text() {
     E2213HS091_TurnOffDCDC();
 }
 
+volatile unsigned char rx;
+
+/* 초기화 참고 : https://wowon.tistory.com/75 */
+void UART0_init() {	// 0번 수신 (PC->)
+	UCSR0A = 0x00;
+
+	// RXCIE0: 수신완료 인터럽트 허용비트.
+	// RXEN0 : 수신 허용 비트.
+	UCSR0B |= (1<<RXCIE0) | (1<<RXEN0);
+
+	// 비동기, 페리티=none, stop=1bit,  data=8비트 사용
+	UCSR0C |= (1<<UCSZ01) | (1<<UCSZ00);
+
+	// 9600 보율
+	UBRR0H = 0x00;	
+	UBRR0L = 103;
+}
+
+void UART1_init() {	// 1번 송신 (->RF MCU)
+	UCSR1A = 0x00;
+	
+	// TXEN1 : 송신 허용 비트
+	UCSR1B |= (1<<TXEN1);
+	
+	// 비동기, 페리티=none, stop=1bit,  data=8비트 사용
+	UCSR1C |= (1<<UCSZ11) | (1<<UCSZ10);
+
+	// 9600 보율
+	UBRR1H = 0x00;
+	UBRR1L = 103;
+}
+
+void UART_Init() {
+	UART0_init();	// (PC -> )
+	UART1_init();	// ( -> RF MCU)
+	SREG = 0x80; 	// 인터럽트 활성화
+}
+
+/* 0번 UART에서 데이터를 받으면 1번 UART 송신 인터럽트를 활성화 하여 받은 데이터를 바이페스 합니다. */
+ISR(USART0_RX_vect)	{  // UART0 수신완료 인터럽트
+	rx = UDR0;
+	UCSR1B |= (1<<UDRIE1);	// 송신 준비완료 인터럽트 인에이블 비트 Set
+}
+
+ISR(USART1_UDRE_vect) {	 // UART1 송신 준비완료 인터럽트
+	UDR1 = rx;
+	UCSR1B &= ~(1<<UDRIE1);  // 송신 준비완료 인터럽트 인에이블 비트 Clear
+}
+
+/* 임의 데이터 전송해야 할 때 사용, 만약 사용할 경우 인터럽트 인에이블 비트 Clear 후 사용. */
+void UART1_PutChar(char data) {
+	while ((UCSR1A &(1<<UDRE)) == 0);
+	UDR1 = data;	
+}
+void UART1_PutStream(char *stream, int len) {
+	while (len > 0) {
+		UART1_PutChar(*stream++);
+		len--;
+	}
+}
 
 int main(void)
 {
-	/* 테스트 */
-	// LCD_DDR = ~LCD_BUSY;
-	// while(1) {
-	// 	LCD_BUSY_Port = LCD_BUSY;
-	// 	HAL_Delay(1000);
-	// 	LCD_BUSY_Port = 0x00;
-	// 	HAL_Delay(1000);
-	// }
-	
-    /* 본 코드 */
+	/* Init */
     init_spi_master();
-    init_GPIO();	
+    init_GPIO();
 	E2213HS091_Init();
+	
+	UART_Init();
 
-	// while(1) {
-	// 	SET_CLK;
-	// 	SET_DAT;
-	// 	HAL_Delay(3000);
-	// 	CLR_CLK;
-	// 	CLR_DAT;
-	// 	HAL_Delay(3000);
-	// }
+	/* Loop */
 	while (1)
 	{
 		showLogo();
@@ -217,25 +265,4 @@ int main(void)
     	E2213HS091_TurnOffDCDC();
 		HAL_Delay(3000);
 	}
-	
-	DDRA = 0xFF;
-    while (1) 
-    {
-	    PORTA = 0xFF;
-		E2213HS091_ClearFullScreen(BLACK);
-		E2213HS091_SendImageData();
-
-		E2213HS091_SendUpdateCmd();
-		// E2213HS091_TurnOffDCDC();
-		HAL_Delay(3000);
-		
-		PORTA = 0x00;
-		E2213HS091_ClearFullScreen(WHITE);
-		E2213HS091_SendImageData();
-		
-		E2213HS091_SendUpdateCmd();
-		// E2213HS091_TurnOffDCDC();
-	    HAL_Delay(3000);
-    }
 }
-
